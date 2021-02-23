@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HISInterface", "HISInterface\HISInterface.csproj", "{FB9E56EE-33AC-4EAE-B0FC-A337A48346AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB9E56EE-33AC-4EAE-B0FC-A337A48346AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9E56EE-33AC-4EAE-B0FC-A337A48346AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB9E56EE-33AC-4EAE-B0FC-A337A48346AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9E56EE-33AC-4EAE-B0FC-A337A48346AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2E0D123-6B08-4B85-9298-AF1A4139013C}
+	EndGlobalSection
+EndGlobal
