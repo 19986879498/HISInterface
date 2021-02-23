@@ -411,6 +411,16 @@ namespace HISInterface.Controllers
             return new ObjectResult(new {success=jObject.GetValue("success").ToString(),rspcod=jObject.GetValue("rspcod").ToString(),msgGroup=jObject.GetValue("msgGroup").ToString() });
         }
         #endregion
+
+        
+
+        #region 获取扫码支付二维码
+        [HttpGet,Route("GetQRImage")]
+        public IActionResult GetQRImage(string ClinicNo)
+        {
+            return Functions.GetPictureurl(ClinicNo);
+        }
+	    #endregion
         /// <summary>
         /// 切换数据库的方法
         /// </summary>
