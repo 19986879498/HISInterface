@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Xml;
 using HISInterface.DBContext;
@@ -10,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting.Internal;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Oracle.ManagedDataAccess.Client;
@@ -418,7 +423,9 @@ namespace HISInterface.Controllers
         [HttpGet,Route("GetQRImage")]
         public IActionResult GetQRImage(string ClinicNo)
         {
-            return File(Functions.GetPictureurl(ClinicNo),"Image/png");
+           Stream imgarr = Functions.GetPictureurl(ClinicNo); 
+          
+            return  File(imgarr, "image/jpeg");
         }
 	    #endregion
         /// <summary>

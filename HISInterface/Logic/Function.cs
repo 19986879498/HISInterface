@@ -48,7 +48,7 @@ namespace HISInterface.Logic
             return token;
         }
         //获取小程序图片
-        public static byte[] GetPictureurl(string ClinicNo)
+        public static Stream GetPictureurl(string ClinicNo)
         {
             try
             {
@@ -101,13 +101,7 @@ namespace HISInterface.Logic
                     response = ex.Response as HttpWebResponse;
                 }
                 Stream s = response.GetResponseStream();
-
-                //return Image.FromStream(s);
-                ////  Stream postData = Request.InputStream;
-                StreamReader sRead = new StreamReader(s);
-                string postContent = sRead.ReadToEnd();
-                byte[] bytearr = Encoding.UTF8.GetBytes(postContent);
-                return bytearr;//返回Json数据
+                return s;
             }
 
             catch (Exception)
