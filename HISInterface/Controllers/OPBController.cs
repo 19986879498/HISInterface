@@ -501,7 +501,7 @@ namespace HISInterface.Controllers
             if (!j.ContainsKey("Items"))
             {
                 return new ObjectResult(new { msg = "请求失败", data = "参数错误！没有找到参数名为Items的参数", code = "500" });
-            }
+            } 
             else
             {
                 string[] Itemslist = Methods.getStringToT<string[]>(j.GetValue("Items", StringComparison.OrdinalIgnoreCase).ToString());
@@ -517,6 +517,10 @@ namespace HISInterface.Controllers
                     }
                 }
             }
+            if (!j.ContainsKey("peopleType"))
+            {
+                return new ObjectResult(new { msg = "请求失败", data = "参数错误！没有找到参数名为peopleType的参数", code = "500" });
+            }
             if (!j.ContainsKey("date"))
             {
                 return new ObjectResult(new { msg = "请求失败", data = "参数错误！没有找到参数名为date的参数", code = "500" });
@@ -525,6 +529,7 @@ namespace HISInterface.Controllers
             //入参
             oralist.Add(Methods.GetInput("CARD_NO", j.GetValue("CardNo", StringComparison.OrdinalIgnoreCase).ToString()));
             oralist.Add(Methods.GetInput("Item_Code", ItemList));
+            oralist.Add(Methods.GetInput("people_type", j.GetValue("peopleType", StringComparison.OrdinalIgnoreCase).ToString()));
             try
             {
                 oralist.Add(Methods.GetInput("PRE_DATE", OracleDbType.Varchar2, Convert.ToDateTime(j.GetValue("date", StringComparison.OrdinalIgnoreCase).ToString()).ToString("yyyy-MM-dd HH:mm:ss")));
