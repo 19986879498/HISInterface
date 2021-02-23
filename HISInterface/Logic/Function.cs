@@ -25,14 +25,14 @@ namespace HISInterface.Logic
                 string appSecret = "a4971ccff81e9c31d13e944602d7e0c1";
                 //获取微信token
                 string token_url = "https://api.weixin.qq.com/cgi-bin/token?appid=" + appID + "&secret=" + appSecret + "&grant_type=client_credential";
-                Log.Logger.GetLog("Url:" + token_url);
+               // Log.Logger.GetLog("Url:" + token_url);
                 HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(token_url);
                 //请求方式
                 myRequest.Method = "GET";
                 HttpWebResponse myResponse = (HttpWebResponse)myRequest.GetResponse();
                 StreamReader reader = new StreamReader(myResponse.GetResponseStream(), Encoding.UTF8);
                 string content = reader.ReadToEnd();
-                Log.Logger.GetLog("Content:" + content.ToString());
+               // Log.Logger.GetLog("Content:" + content.ToString());
                 myResponse.Close();
                 reader.Dispose();
                 //var result= JsonConvert.DeserializeObject(content);
