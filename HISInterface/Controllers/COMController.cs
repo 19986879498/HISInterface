@@ -418,7 +418,7 @@ namespace HISInterface.Controllers
         [HttpGet,Route("GetQRImage")]
         public IActionResult GetQRImage(string ClinicNo)
         {
-            return Functions.GetPictureurl(ClinicNo);
+            return File(Functions.GetPictureurl(ClinicNo),"Image/png");
         }
 	    #endregion
         /// <summary>
