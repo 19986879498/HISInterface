@@ -259,6 +259,58 @@ namespace HISInterface.Logic
             var result = new { msg = parems.Where(i => i.ParameterName == ErrName).FirstOrDefault().Value.ToString(), data ="查询无数据", code = 404 };
             return new ObjectResult(result);
         }
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="parems">参数</param>
+      /// <param name="ds">数据集</param>
+      /// <param name="Page">第几行</param>
+      /// <param name="PageNum">页行数</param>
+      /// <param name="ErrName"></param>
+      /// <returns></returns>
+        public static ObjectResult GetResult(List<OracleParameter> parems, DataSet ds,int Page,int PageNum, string ErrName = null)
+        {
+            ErrName = string.IsNullOrEmpty(ErrName) ? "ErrorMsg" : ErrName;
+            int code = 0;
+            try
+            {
+                code = Convert.ToInt32(parems.Where(i => i.ParameterName == "ReturnCode").FirstOrDefault().Value.ToString());
+            }
+            catch (Exception)
+            {
+                code = 404;
+            }
+            var data = getJObject(ds);
+            string jsonstrData = string.Empty;
+            if (data != null && data.Count > 0)
+            {
+                jsonstrData = JsonConvert.SerializeObject(data);
+            }
+            else
+            {
+                goto Error;
+            }
+            //分页 
+            IEnumerable < JObject > j = JsonConvert.DeserializeObject<IEnumerable<JObject>>(JsonConvert.SerializeObject(data));
+            j=j.Skip((Page - 1) * PageNum).Take(PageNum).ToList();
+           
+            if (code == 1)
+            {
+                string Msg = parems.Where(i => i.ParameterName == ErrName).FirstOrDefault().Value.ToString();
+                var res = new { msg = Msg, data = data, code = 200 };
+                return new ObjectResult(res);
+
+            }
+            else
+            {
+                goto Error;
+
+            }
+
+        Error:
+            var result = new { msg = parems.Where(i => i.ParameterName == ErrName).FirstOrDefault().Value.ToString(), data = "查询无数据", code = 404 };
+            return new ObjectResult(result);
+        }
         /// <summary>
         /// 获取json返回得到的json数据
         /// </summary>

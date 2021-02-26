@@ -70,7 +70,7 @@ namespace HISInterface.Controllers
 
             var ds = Logic.Methods.SqlQuery(db, @"zjhis.PKG_ZHYY_MZ.PRC_OutpDoctorQuery", parems.ToArray());
             ObjectResult obj = Methods.GetResult(parems, ds);
-            Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(obj));
+        //    Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(obj));
             return obj;
         } 
         #endregion
@@ -105,7 +105,7 @@ namespace HISInterface.Controllers
 
             var ds = Logic.Methods.SqlQuery(db, @"zjhis.PKG_ZHYY_MZ.PRC_OutpDoctorQueryBySortId", parems.ToArray());
             ObjectResult obj = Methods.GetResult(parems, ds);
-            Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(obj));
+          //  Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(obj));
             return obj;
         } 
         #endregion
@@ -131,7 +131,7 @@ namespace HISInterface.Controllers
             parems.Add(Logic.Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 200));
             var ds = Logic.Methods.SqlQuery(db, @"zjhis.PKG_ZHYY_MZ.PRC_OutpRegisterDeptQuery", parems.ToArray());
             ObjectResult obj = Methods.GetResultAndHaveSon(parems, ds);
-            Console.WriteLine("返回参数："+JsonConvert.SerializeObject(obj));
+          //  Console.WriteLine("返回参数："+JsonConvert.SerializeObject(obj));
             return obj;
         }
         #endregion
@@ -159,7 +159,7 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.getHospitalItemList", oralist.ToArray());
-            Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
+           // Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
             return Methods.GetResult(oralist, ds);
         }
         #endregion
@@ -199,7 +199,7 @@ namespace HISInterface.Controllers
             {
                 return new JsonResult(new { msg = "没有找到住院信息！", data = "查询结果为空", code = 404 });
             }
-            Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(new JsonResult(new { msg = "查询成功！", data = arr, code = 200 })));
+           // Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(new JsonResult(new { msg = "查询成功！", data = arr, code = 200 })));
             return new JsonResult(new { msg = "查询成功！", data = arr, code = 200 });
         }
         #endregion
@@ -265,12 +265,12 @@ namespace HISInterface.Controllers
                 {
                     objects.Add(new JsonResult(new { hospitalName = j.FirstOrDefault(u => u.GetValue("hospitalNo").ToString() == item).GetValue("hospitalName").ToString(), patientName = j.FirstOrDefault(u => u.GetValue("hospitalNo").ToString() == item).GetValue("patientName").ToString(), hospitalNo = item.ToString(), inTime = j.FirstOrDefault(u => u.GetValue("hospitalNo").ToString() == item).GetValue("inTime").ToString(), outTime = j.FirstOrDefault(u => u.GetValue("hospitalNo").ToString() == item).GetValue("outTime").ToString(), detail = (from JObject x in j where x.GetValue("hospitalNo").ToString() == item select x).Select(s => new { titleName = s.GetValue("titleName").ToString(), unit = s.GetValue("unit").ToString(), num = s.GetValue("num").ToString(), price = s.GetValue("price").ToString() }) }).Value);
                 }
-                Console.WriteLine("返回参数：\n" + JsonConvert.SerializeObject(new JsonResult(new { msg = "查询成功！", data = objects, code = 200 })));
+              //  Console.WriteLine("返回参数：\n" + JsonConvert.SerializeObject(new JsonResult(new { msg = "查询成功！", data = objects, code = 200 })));
                 return new JsonResult(new { msg = "查询成功！", data = objects, code = 200 });
             }
             else
             {
-                Console.WriteLine("返回参数：\n" + JsonConvert.SerializeObject(Methods.GetResult(parems, ds)));
+                //Console.WriteLine("返回参数：\n" + JsonConvert.SerializeObject(Methods.GetResult(parems, ds)));
                 return Methods.GetResult(parems, ds);
             }
          }
@@ -296,7 +296,7 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
             var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.QueryRegStatus", oralist.ToArray());
-            Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
+            //Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
             return Methods.GetResult(oralist, ds);
         }
         #endregion
@@ -321,7 +321,7 @@ namespace HISInterface.Controllers
                 return new JsonResult(new { msg = "没有找到住院患者的信息！", data = "查询结果为空", code = 404 });
             }
             JsonResult js = new JsonResult(new { msg = "查询成功！", data = arr, code = 200 });
-            Console.WriteLine("出参："+JsonConvert.SerializeObject(js.Value));
+            //Console.WriteLine("出参："+JsonConvert.SerializeObject(js.Value));
             return new JsonResult(new { msg = "查询成功！", data = arr, code = 200 });
         }
         #endregion
@@ -357,7 +357,7 @@ namespace HISInterface.Controllers
 
             var ds = Logic.Methods.SqlQuery(db, @"zjhis.PKG_ZHYY_MZ.PRC_DoctorQueryToWL15", parems.ToArray());
             ObjectResult obj = Methods.GetResult(parems, ds);
-            Console.WriteLine("返回参数：\n" + JsonConvert.SerializeObject(obj));
+            //Console.WriteLine("返回参数：\n" + JsonConvert.SerializeObject(obj));
             return obj;
         }
         #endregion
@@ -427,7 +427,50 @@ namespace HISInterface.Controllers
           
             return  File(imgarr, "image/jpeg");
         }
-	    #endregion
+        #endregion
+
+        #region 挂号订单查询
+        [HttpPost, Route("GetRegOrderInfo")]
+        public IActionResult GetRegOrderInfo([FromBody] dynamic dynamic)
+        {
+            UpdateSql("his");
+            JObject j = Methods.dynamicToJObject(dynamic);
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号订单查询的入参" + j.ToString());
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            if (!j.ContainsKey("Page"))
+            {
+                return new ObjectResult(new { msg = "请求失败", data ="入参错误！没有找到参数名为Page的参数", code = "500" });
+            }
+            if (!j.ContainsKey("pageSize"))
+            {
+                return new ObjectResult(new { msg = "请求失败", data = "入参错误！没有找到参数名为pageSize的参数", code = "500" });
+            }
+            int page = Convert.ToInt32(j.GetValue("Page", StringComparison.OrdinalIgnoreCase).ToString());
+            int pageNum = Convert.ToInt32(j.GetValue("pageSize", StringComparison.OrdinalIgnoreCase).ToString());
+            try
+            {
+                oralist.Add(Methods.GetInput("clinic_code", j.GetValue("registerNo").ToString()));
+                oralist.Add(Methods.GetInput("patname", j.GetValue("patientName").ToString()));
+                oralist.Add(Methods.GetInput("status", j.GetValue("Status").ToString()));
+                oralist.Add(Methods.GetInput("doctName", j.GetValue("doctorName").ToString()));
+                oralist.Add(Methods.GetInput("startTime", j.GetValue("startTime").ToString()));
+                oralist.Add(Methods.GetInput("endTime", j.GetValue("endTime").ToString()));
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+            
+            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_REGORDERQUERY", oralist.ToArray());
+            
+            // Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
+            return Methods.GetResult(oralist, ds,page,pageNum);
+        }
+        #endregion
+
         /// <summary>
         /// 切换数据库的方法
         /// </summary>
