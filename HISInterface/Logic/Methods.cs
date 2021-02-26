@@ -297,7 +297,7 @@ namespace HISInterface.Logic
             if (code == 1)
             {
                 string Msg = parems.Where(i => i.ParameterName == ErrName).FirstOrDefault().Value.ToString();
-                var res = new { msg = Msg, data = data, code = 200 };
+                var res = new { msg = Msg, data = j, code = 200,count=data.Count };
                 return new ObjectResult(res);
 
             }
