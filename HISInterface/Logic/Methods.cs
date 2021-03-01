@@ -35,6 +35,11 @@ namespace HISInterface.Logic
         public static DataSet SqlQuery(DB db, string spName, params OracleParameter[] paramsters)
         {
             OracleConnection connection = db.Database.GetDbConnection() as OracleConnection;
+            ////OracleConnection connection = new OracleConnection(db.Database.GetDbConnection().ConnectionString);//db.Database.GetDbConnection() as OracleConnection
+            //if (connection.State==ConnectionState.Closed)
+            //{
+            //    connection.Open();
+            //}
             OracleDataAdapter adapter = null;
             DataSet set = null;
             using (OracleCommand command = new OracleCommand(spName, connection))
