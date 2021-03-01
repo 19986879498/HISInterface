@@ -423,6 +423,7 @@ namespace HISInterface.Controllers
         [HttpGet,Route("GetQRImage")]
         public IActionResult GetQRImage(string ClinicNo)
         {
+            Console.WriteLine("获取扫码支付二维码时间："+System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")+"参数：ClinicNo:"+ClinicNo);
            Stream imgarr = Functions.GetPictureurl(ClinicNo); 
           
             return  File(imgarr, "image/jpeg");
