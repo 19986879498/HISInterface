@@ -429,6 +429,115 @@ namespace HISInterface.Controllers
         }
         #endregion
 
+        #region 挂号订单查询
+        [HttpPost, Route("GetRegOrderInfo")]
+        public IActionResult GetRegOrderInfo([FromBody] dynamic dynamic)
+        {
+            UpdateSql("his");
+            JObject j = Methods.dynamicToJObject(dynamic);
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号订单查询的入参" + j.ToString());
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            if (!j.ContainsKey("Page"))
+            {
+                return new ObjectResult(new { msg = "请求失败", data = "入参错误！没有找到参数名为Page的参数", code = "500" });
+            }
+            if (!j.ContainsKey("pageSize"))
+            {
+                return new ObjectResult(new { msg = "请求失败", data = "入参错误！没有找到参数名为pageSize的参数", code = "500" });
+            }
+            int page = Convert.ToInt32(j.GetValue("Page", StringComparison.OrdinalIgnoreCase).ToString());
+            int pageNum = Convert.ToInt32(j.GetValue("pageSize", StringComparison.OrdinalIgnoreCase).ToString());
+            try
+            {
+                oralist.Add(Methods.GetInput("clinic_code", j.GetValue("registerNo").ToString()));
+                oralist.Add(Methods.GetInput("patname", j.GetValue("patientName").ToString()));
+                oralist.Add(Methods.GetInput("status", j.GetValue("Status").ToString()));
+                oralist.Add(Methods.GetInput("doctName", j.GetValue("doctorName").ToString()));
+                oralist.Add(Methods.GetInput("startTime", j.GetValue("startTime").ToString()));
+                oralist.Add(Methods.GetInput("endTime", j.GetValue("endTime").ToString()));
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+
+            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_REGORDERQUERY", oralist.ToArray());
+
+            // Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
+            return Methods.GetResult(oralist, ds, page, pageNum);
+        }
+
+        #endregion
+
+        #region 根据医生选择缴费查询
+        [HttpPost, Route("getHospitalItemListByDoctor")]
+        public IActionResult getHospitalItemListByDoctor([FromBody] dynamic dynamic)
+        {
+            UpdateSql("his");
+            JObject j = Methods.dynamicToJObject(dynamic);
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n根据医生选择缴费查询的入参" + j.ToString());
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            try
+            {
+                oralist.Add(Methods.GetInput("clinicNo", j.GetValue("clinicNo").ToString()));
+                oralist.Add(Methods.GetInput("patientName", j.GetValue("patientName").ToString()));
+                oralist.Add(Methods.GetInput("Status", j.GetValue("Status").ToString()));
+                oralist.Add(Methods.GetInput("doctorName", j.GetValue("doctorName").ToString()));
+                oralist.Add(Methods.GetInput("startTime", j.GetValue("startTime").ToString()));
+                oralist.Add(Methods.GetInput("endTime", j.GetValue("endTime").ToString()));
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+
+            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetHosItemListByDoc", oralist.ToArray());
+            // Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
+            if (!j.ContainsKey("Page"))
+            {
+                return new ObjectResult(new { msg = "请求失败,参数出现错误", data = "没有找到参数名为Page的参数", code = "500" });
+            }
+            if (!j.ContainsKey("pageSize"))
+            {
+                return new ObjectResult(new { msg = "请求失败,参数出现错误", data = "没有找到参数名为pageSize的参数", code = "500" });
+            }
+            int page = Convert.ToInt32(j.GetValue("Page", StringComparison.OrdinalIgnoreCase).ToString());
+            int pageSize = Convert.ToInt32(j.GetValue("pageSize", StringComparison.OrdinalIgnoreCase).ToString());
+            return Methods.GetResult(oralist, ds, page, pageSize);
+        }
+        #endregion
+
+
+        #region 缴费明细查询
+        [HttpGet, Route("getHosItemDetail")]
+        public IActionResult getHosItemDetail(string orderNo)
+        {
+            UpdateSql("his");
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n缴费明细查询的入参" + orderNo);
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            try
+            {
+                oralist.Add(Methods.GetInput("orderNO", orderNo));
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+
+            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetHosItemDetail", oralist.ToArray());
+            return Methods.GetResult(oralist, ds);
+        }
+        #endregion
+
 
         /// <summary>
         /// 切换数据库的方法
