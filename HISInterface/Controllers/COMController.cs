@@ -540,6 +540,103 @@ namespace HISInterface.Controllers
         #endregion
 
 
+        #region 收入金额订单数量接口
+        [HttpGet, Route("getHosItemNumList")]
+        public IActionResult getHosItemNumList(string start,string end)
+        {
+            UpdateSql("his");
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n缴费明细查询getHosItemNumList的入参start:" + start+"end:"+end);
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            try
+            {
+                oralist.Add(Methods.GetInput("beginDate", start));
+                oralist.Add(Methods.GetInput("endDate", end));
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+
+            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetTotal", oralist.ToArray());
+            return Methods.GetResult(oralist, ds);
+        }
+        #endregion
+
+        #region 交易金额走势图接口
+        [HttpGet, Route("getHosItemNumListByType")]
+        public IActionResult getHosItemNumListByType(int Type)
+        {
+            UpdateSql("his");
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n交易金额走势图接口getHosItemNumListByType的入参Type:" + Type);
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            try
+            {
+                oralist.Add(new OracleParameter() { ParameterName = "SelType", OracleDbType = OracleDbType.Int32, Value = Type});
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+
+            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetTotalByDate", oralist.ToArray());
+            return Methods.GetResult(oralist, ds);
+        }
+        #endregion
+
+        #region 各业务交易金额接口
+        [HttpGet, Route("getHosItemNumListByYW")]
+        public IActionResult getHosItemNumListByYW(int Type)
+        {
+            UpdateSql("his");
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n交易金额走势图接口getHosItemNumListByYW的入参Type:" + Type);
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            try
+            {
+                oralist.Add(new OracleParameter() { ParameterName = "SelType", OracleDbType = OracleDbType.Int32, Value = Type });
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+
+            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetTotalByType", oralist.ToArray());
+            return Methods.GetResult(oralist, ds);
+        }
+        #endregion
+
+
+        #region HIS账单接口(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+        [HttpGet, Route("GetyesterdayTotal")]
+        public IActionResult GetyesterdayTotal()
+        {
+            UpdateSql("his");
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n交易金额走势图接口GetyesterdayTotal" );
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            //try
+            //{
+            //    oralist.Add(new OracleParameter() { ParameterName = "SelType", OracleDbType = OracleDbType.Int32, Value = Type });
+            //}
+            //catch (Exception ex)
+            //{
+            //    return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            //}
+            oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+
+            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetyesterdayTotal", oralist.ToArray());
+            return Methods.GetResult(oralist, ds);
+        }
+        #endregion
         /// <summary>
         /// 切换数据库的方法
         /// </summary>
