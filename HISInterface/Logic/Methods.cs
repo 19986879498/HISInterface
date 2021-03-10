@@ -265,7 +265,7 @@ namespace HISInterface.Logic
             return new ObjectResult(result);
         }
       /// <summary>
-      /// 
+      /// 分页返回
       /// </summary>
       /// <param name="parems">参数</param>
       /// <param name="ds">数据集</param>
