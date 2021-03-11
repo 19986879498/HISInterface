@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Xml;
 using HISInterface.DBContext;
+using HISInterface.Filters;
 using HISInterface.Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,8 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace HISInterface.Controllers
 {
+    [ServiceFilter(typeof(CustomExceptionFilterAttribute))]
+    [TypeFilter(typeof(CustomExceptionFilterAttribute))]
     [Route("api/[controller]")]
     [ApiController]
     public class COMController : ControllerBase

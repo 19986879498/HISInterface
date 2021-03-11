@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 using HISInterface.DBContext;
+using HISInterface.Filters;
 using HISInterface.Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,8 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace HISInterface.Controllers
 {
+    [ServiceFilter(typeof(CustomExceptionFilterAttribute))]
+    [TypeFilter(typeof(CustomExceptionFilterAttribute))]
     [Route("api/[controller]")]
     [ApiController]
     public class COMtestController : ControllerBase
@@ -33,6 +36,7 @@ namespace HISInterface.Controllers
         [HttpGet,Route("Get")]
         public IActionResult Get()
         {
+            throw new Exception("测试错误");
             return Content("测试");
         }
         #region 获取科室的医生排班情况

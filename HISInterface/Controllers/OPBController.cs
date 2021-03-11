@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using HISInterface.DBContext;
+using HISInterface.Filters;
 using HISInterface.Logic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,8 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace HISInterface.Controllers
 {
+    [ServiceFilter(typeof(CustomExceptionFilterAttribute))]
+    [TypeFilter(typeof(CustomExceptionFilterAttribute))]
     [Route("api/[controller]")]
     [ApiController]
     public class OPBController : ControllerBase

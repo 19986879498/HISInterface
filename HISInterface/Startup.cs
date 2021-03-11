@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HISInterface.DBContext;
+using HISInterface.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,7 +34,9 @@ namespace HISInterface
         {
             services.AddControllersWithViews(item=> {
                 item.ModelBinderProviders.Insert(0, new JObjectModelBinderProvider());
+                item.Filters.Add(typeof(CustomExceptionFilterAttribute));
             });
+            services.AddTransient<CustomExceptionFilterAttribute>();
             services.AddDbContextPool<DBContext.DB>(db => db.UseOracle(this.Configuration["OrclDBStrCSK"].ToString(), item => item.UseOracleSQLCompatibility("11")));
             services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Latest).AddNewtonsoftJson();
             //services.AddCors(options =>
