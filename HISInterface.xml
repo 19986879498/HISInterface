@@ -1,0 +1,327 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HISInterface</name>
+    </assembly>
+    <members>
+        <member name="M:HISInterface.Controllers.COMController.getDoctorScheduling(System.Object)">
+            <summary>
+            获取科室的医生排班情况
+            </summary>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getDoctorAppointmentOrders(System.Object)">
+            <summary>
+            获得医生某天排班序号
+            </summary>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getAllDeptRoom">
+            <summary>
+            获取医院科目列表以及科室
+            PRC_OutpRegisterDeptQuery
+            </summary>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getDoctorByWL15(System.Object)">
+            <summary>
+            获取科室未来15天的医生排班情况
+            </summary>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.getHospitalItemListByDoctor(System.Object)">
+            <summary>
+            根据医生选择缴费查询
+            </summary>
+            <remarks>
+            >参数实例
+            {
+                 "clinicNo":"",
+                "patientName":"",
+                "Status":"",
+                "doctorName":"",
+                 "startTime":"",
+                "endTime":""
+             }
+            </remarks>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getDoctorScheduling(System.Object)">
+            <summary>
+            获取科室的医生排班情况
+            </summary>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getDoctorAppointmentOrders(System.Object)">
+            <summary>
+            获得医生某天排班序号
+            </summary>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getAllDeptRoom">
+            <summary>
+            获取医院科目列表以及科室
+            PRC_OutpRegisterDeptQuery
+            </summary>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.getDoctorByWL15(System.Object)">
+            <summary>
+            获取科室未来15天的医生排班情况
+            </summary>
+            <param name="Obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.COMtestController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+            <param name="SqlType"></param>
+        </member>
+        <member name="M:HISInterface.Controllers.IPBtestController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+            <param name="SqlType"></param>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.test">
+            <summary>
+            用于测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.registCard(System.Object)">
+            <summary>
+            注册就诊卡
+            </summary>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.bindCard(System.Object)">
+            <summary>
+            绑定就诊卡
+            </summary>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.appointment(System.Object)">
+            <summary>
+            锁号的接口
+            </summary>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.updateAppointmentStatus(System.Object)">
+            <summary>
+            挂号确认的接口
+            </summary>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.sendOtherTypeRecord(System.Object)">
+            <summary>
+            其他费用缴费接口
+            </summary>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+            <param name="SqlType"></param>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.test">
+            <summary>
+            用于测试
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.registCard(System.Object)">
+            <summary>
+            注册就诊卡
+            </summary>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.bindCard(System.Object)">
+            <summary>
+            绑定就诊卡
+            </summary>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.appointment(System.Object)">
+            <summary>
+            锁号的接口
+            </summary>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.updateAppointmentStatus(System.Object)">
+            <summary>
+            挂号确认的接口
+            </summary>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.sendOtherTypeRecord(System.Object)">
+            <summary>
+            其他费用缴费接口
+            </summary>
+            <param name="dynamic"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Controllers.OPBtestController.UpdateSql(System.String)">
+            <summary>
+            切换数据库的方法
+            </summary>
+            <param name="SqlType"></param>
+        </member>
+        <member name="M:HISInterface.Logic.Functions.GetAccessToken">
+            <summary>
+            获取access_token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HISInterface.Logic.Methods">
+            <summary>
+            ado.net 方法
+            </summary>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.SqlQuery(HISInterface.DBContext.DB,System.String,Oracle.ManagedDataAccess.Client.OracleParameter[])">
+            <summary>
+            调用存储过程获取方法
+            </summary>
+            <param name="db"></param>
+            <param name="spName"></param>
+            <param name="paramsters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.SqlQuery(HISInterface.DBContext.DB,System.String)">
+            <summary>
+            获取查询
+            </summary>
+            <param name="db"></param>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.dynamicToJObject(System.Object)">
+            <summary>
+            dynamic转jobject
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.getStringToT``1(System.String)">
+            <summary>
+            string转T
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetInput(System.String,System.Object)">
+            <summary>
+            获得入参
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetInput(System.String,Oracle.ManagedDataAccess.Client.OracleDbType,System.Object)">
+            <summary>
+            获得入参
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetOutput(System.String,Oracle.ManagedDataAccess.Client.OracleDbType,System.Int32)">
+            <summary>
+            获得出参
+            </summary>
+            <param name="name"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.getJObject(System.Data.DataSet)">
+            <summary>
+            将dataset数据集转换成json对象
+            </summary>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetResult(System.Collections.Generic.List{Oracle.ManagedDataAccess.Client.OracleParameter},System.Data.DataSet,System.String)">
+            <summary>
+            获取json返回得到的json数据
+            </summary>
+            <param name="parems"></param>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetResult(System.Collections.Generic.List{Oracle.ManagedDataAccess.Client.OracleParameter},System.Data.DataSet,System.Int32,System.Int32,System.String)">
+            <summary>
+            分页返回
+            </summary>
+            <param name="parems">参数</param>
+            <param name="ds">数据集</param>
+            <param name="Page">第几行</param>
+            <param name="PageNum">页行数</param>
+            <param name="ErrName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.Methods.GetResultAndHaveSon(System.Collections.Generic.List{Oracle.ManagedDataAccess.Client.OracleParameter},System.Data.DataSet)">
+            <summary>
+            获取json返回得到的json数据
+            </summary>
+            <param name="parems"></param>
+            <param name="ds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.SqlMethods.GetHISDBCSK(HISInterface.DBContext.DB)">
+            <summary>
+            连接HIS数据库测试库
+            </summary>
+            <param name="dB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.SqlMethods.GetHISDBCSK2(HISInterface.DBContext.DB)">
+            <summary>
+            连接HIS数据库测试库
+            </summary>
+            <param name="dB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.SqlMethods.GetHISDBZSK(HISInterface.DBContext.DB)">
+            <summary>
+            连接HIS数据库正式库
+            </summary>
+            <param name="dB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.SqlMethods.GetLISDB(HISInterface.DBContext.DB)">
+            <summary>
+            连接LIS数据库
+            </summary>
+            <param name="dB"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HISInterface.Logic.SqlMethods.GetPacsDB(HISInterface.DBContext.DB)">
+            <summary>
+            连接Pacs数据库
+            </summary>
+            <param name="dB"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

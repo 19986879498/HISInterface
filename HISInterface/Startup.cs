@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HISInterface.DBContext;
+using HISInterface.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,7 +35,9 @@ namespace HISInterface
         {
             services.AddControllersWithViews(item=> {
                 item.ModelBinderProviders.Insert(0, new JObjectModelBinderProvider());
+                item.Filters.Add(typeof(CustomExceptionFilterAttribute));
             });
+            services.AddTransient<CustomExceptionFilterAttribute>();
             services.AddDbContextPool<DBContext.DB>(db => db.UseOracle(this.Configuration["OrclDBStrCSK"].ToString(), item => item.UseOracleSQLCompatibility("11")));
             services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Latest).AddNewtonsoftJson();
             //services.AddCors(options =>
@@ -50,6 +54,12 @@ namespace HISInterface
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HISInterface", Version = "v1" });
+                // 为 Swagger JSON and UI设置xml文档注释路径
+                
+                var basePath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;//获取应用程序所在目录（绝对，不受工作目录影响，建议采用此方法获取路径）
+                //添加swagger注释
+                var xmlPath = Path.Combine(basePath, "HISInterface.xml");
+                c.IncludeXmlComments(xmlPath);
             });
         }
 

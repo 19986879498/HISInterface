@@ -8,7 +8,8 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningLevel>5</WarningLevel>
-    <DocumentationFile>F:\枝江市中医院医共体信息化\源代码\智慧医院\HISInterface\HISInterface\HISInterface.xml</DocumentationFile>
+    <DocumentationFile>../HISInterface.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
