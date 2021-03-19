@@ -49,6 +49,17 @@ namespace HISInterface.Controllers
         /// <summary>
         /// 注册就诊卡
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "idCardNo":"身份证",
+        ///      "patientName":"患者姓名",
+        ///      "sex":"性别",
+        ///      "birthday":"生日",
+        ///      "address":"住址",
+        ///      "phone":"电话"
+        ///  }
+        /// </remarks>
         /// <param name="dynamic"></param>
         /// <returns></returns>
         [HttpPost, Route("registCard")]
@@ -92,6 +103,13 @@ namespace HISInterface.Controllers
         /// <summary>
         /// 绑定就诊卡
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "cardType":"卡类别",
+        ///      "cardWord":"卡号"
+        ///  }
+        /// </remarks>
         /// <param name="dynamic"></param>
         /// <returns></returns>
         [HttpPost, Route("bindCard")]
@@ -131,6 +149,20 @@ namespace HISInterface.Controllers
         /// <summary>
         /// 锁号的接口
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "patientId":"门诊卡号",
+        ///      "appointmentType":"",
+        ///      "shemaId":"排班id",
+        ///      "poolId":"号源id",
+        ///      "doctorId":"医生id",
+        ///      "deptName":"科室",
+        ///      "appointmentOrder":"",
+        ///      "lockTime":"锁号时间",
+        ///      "lockState":"锁号状态"
+        ///  }
+        /// </remarks>
         /// <param name="dynamic"></param>
         /// <returns></returns>
         [HttpPost, Route("appointment")]
@@ -175,6 +207,16 @@ namespace HISInterface.Controllers
         /// <summary>
         /// 挂号确认的接口
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "appointmentId":"门诊卡号",
+        ///      "appointmentStatus":"",
+        ///      "payStatus":"支付状态",
+        ///      "total":"挂号总金额",
+        ///      "payType":"支付方式"
+        ///  }
+        /// </remarks>
         /// <param name="dynamic"></param>
         /// <returns></returns>
         [HttpPost, Route("updateAppointmentStatus")]
@@ -216,6 +258,24 @@ namespace HISInterface.Controllers
 
 
         #region 门诊缴费操作
+        /// <summary>
+        /// 门诊缴费操作
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "billId":"门诊流水号",
+        ///      "OrderNo":"订单号可进行多个拼接  例如 1111|2222|3333",
+        ///      "status":"支付状态",
+        ///      "billType":"",
+        ///      "payType":"支付方式",
+        ///      "ZFAmount":"自费金额 （结算的总金额）",
+        ///      "YBZHAmount":"医保账户支付金额（由于没有医保支付直接给0）",
+        ///      "YBTCAmount":"医保统筹支付金额（由于没有医保支付直接给0）",
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("updateBillStatus")]
         public IActionResult updateBillStatus([FromBody] dynamic dynamic)
         {
@@ -253,6 +313,17 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 挂号退号
+        /// <summary>
+        /// 挂号退号
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "tiket_no":"门诊流水号",
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("registeredBack")]
         public IActionResult registeredBack([FromBody] dynamic dynamic)
         {
@@ -279,6 +350,17 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 加号查询
+        /// <summary>
+        /// 加号查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "CardNo":"门诊卡号",
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost, Route("GetAddRegister")]
         public IActionResult GetAddRegister([FromBody] dynamic dy)
         {
@@ -309,6 +391,21 @@ namespace HISInterface.Controllers
 
 
         #region 加号确认接口
+        /// <summary>
+        /// 加号确认接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "appointmentId":"门诊卡号",
+        ///      "appointmentStatus":"",
+        ///      "payStatus":"支付状态",
+        ///      "total":"挂号总金额",
+        ///      "payType":"支付方式"
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost, Route("AddRegisterConfirm")]
         public IActionResult AddRegisterConfirm([FromBody] dynamic dy)
         {
@@ -344,6 +441,17 @@ namespace HISInterface.Controllers
 
 
         #region 扫码加号查询
+        /// <summary>
+        /// 扫码加号查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "doctorId":"医生id",
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost, Route("SMAddQuery")]
         public IActionResult SMAddQuery([FromBody] dynamic dy)
         {
@@ -373,6 +481,22 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 扫码挂号
+        /// <summary>
+        /// 扫码挂号
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "departId":"科室id",
+        ///      "doctorId":"医生id",
+        ///      "RegLevel":"挂号级别",
+        ///      "CardNo":"门诊卡号",
+        ///      "payStatus":"支付状态",
+        ///      "payType":"支付方式",
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost, Route("SMRegister")]
         public IActionResult SMRegister([FromBody] dynamic dy)
         {
@@ -411,6 +535,24 @@ namespace HISInterface.Controllers
         /// <summary>
         /// 其他费用缴费接口
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "userId":"微信用户id",
+        ///      "phone":"电话",
+        ///      "hospitalId":"",
+        ///      "deptId":"科室id",
+        ///      "projectType":"其他费用类别",
+        ///      "projectPrice":"金额",
+        ///      "payStatus":"支付状态",
+        ///      "payType":"支付方式",
+        ///      "payment":"",
+        ///      "outTradeNo":"",
+        ///      "wxTradeNo":"微信支付id",
+        ///      "createTime":"创建时间",
+        ///      "payTime":"支付时间",
+        ///  }
+        /// </remarks>
         /// <param name="dynamic"></param>
         /// <returns></returns>
         [HttpPost, Route("sendOtherTypeRecord")]
@@ -454,6 +596,21 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 修改患者基本信息接口
+        /// <summary>
+        /// 修改患者基本信息接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "CardNo":"门诊卡号",
+        ///      "name":"姓名",
+        ///      "IdCard":"身份证",
+        ///      "phone":"电话",
+        ///      "address":"住址"
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost, Route("UpdatePatientInfo")]
         public IActionResult UpdatePatientInfo([FromBody] dynamic dy)
         {
@@ -489,6 +646,20 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 预约检查新型冠状核酸检测
+        /// <summary>
+        /// 预约检查新型冠状核酸检测
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "CardNo":"门诊卡号",
+        ///      "Items":["","",""],项目编号
+        ///      "peopleType":"人群类别",
+        ///      "date":"时间"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("ApplyCheck")]
         public IActionResult ApplyCheck([FromBody] dynamic dynamic)
         {

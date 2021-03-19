@@ -31,6 +31,10 @@ namespace HISInterface.Controllers
 
         public DB db { get; set; }
 
+        /// <summary>
+        /// 测试api
+        /// </summary>
+        /// <returns></returns>
         [HttpGet,Route("Get")]
         public IActionResult Get()
         {
@@ -43,6 +47,17 @@ namespace HISInterface.Controllers
             return new ObjectResult(arr);
 
         }
+        /// <summary>
+        /// 查询检查报头
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "cardNo":"门诊卡号"
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost,Route("queryInspectionReport")]
         public IActionResult queryInspectionReport([FromBody] dynamic dy)
         {
@@ -67,6 +82,18 @@ namespace HISInterface.Controllers
             }
             return new JsonResult(new { msg = "查询成功！", data = arr, code = 200 });
         }
+        /// <summary>
+        /// 检查详情查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "id":"检查id",
+        ///      "iswsw":"是否微生物 1 是 0否"
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost,Route("queryInspectionReportDetails")]
         public IActionResult queryInspectionReportDetails([FromBody ] dynamic dy)
         {
@@ -120,6 +147,17 @@ namespace HISInterface.Controllers
             }
             
         }
+        /// <summary>
+        /// 查询检验报告
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "cardNo":"门诊卡号"
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost,Route("queryMedicalReport")]
         public IActionResult queryMedicalReport([FromBody] dynamic dy)
         {
@@ -148,6 +186,22 @@ namespace HISInterface.Controllers
         }
 
         #region 住院预交金收取接口
+        /// <summary>
+        /// 住院预交金收取接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "InpatientNo":"住院流水号",
+        ///      "IdCard":"身份证",
+        ///      "TransNo":"交易流水",
+        ///      "YJCost":"预交金额",
+        ///      "YJTime":"预交时间",
+        ///      "PayMode":"支付方式"
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost,Route("PayInPrepayCost")]
         public IActionResult PayInPrepayCost([FromBody] dynamic dy)
         {

@@ -33,16 +33,27 @@ namespace HISInterface.Controllers
         public DB db { get; set; }
         public IConfiguration configuration { get; }
 
-        [HttpGet,Route("Get")]
+        /// <summary>
+        /// 测试api
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Route("Get")]
         public IActionResult Get()
         {
-            throw new Exception("测试错误");
             return Content("测试");
         }
         #region 获取科室的医生排班情况
         /// <summary>
         /// 获取科室的医生排班情况
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "deptId":"科室id",
+        ///      "date":"时间",
+        ///      "hospitalId":""
+        ///  }
+        /// </remarks>
         /// <param name="Obj"></param>
         /// <returns></returns>
         [HttpPost, Route("getDoctorScheduling")]
@@ -68,7 +79,7 @@ namespace HISInterface.Controllers
             parems.Add(Logic.Methods.GetOutput("ReturnCode", OracleDbType.Int32, 200));
             parems.Add(Logic.Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 200));
 
-            var ds = Logic.Methods.SqlQuery(db, @"zjhis.PKG_ZHYY_MZ.PRC_OutpDoctorQuery", parems.ToArray());
+            var ds = Logic.Methods.SqlQuery(db, @"PKG_ZHYY_MZ.PRC_OutpDoctorQuery", parems.ToArray());
             ObjectResult obj = Methods.GetResult(parems, ds);
             //    Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(obj));
             return obj;
@@ -80,6 +91,12 @@ namespace HISInterface.Controllers
         /// <summary>
         /// 获得医生某天排班序号
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "shemaId":"排班id"
+        ///  }
+        /// </remarks>
         /// <param name="Obj"></param>
         /// <returns></returns>
         [HttpPost, Route("getDoctorAppointmentOrders")]
@@ -103,7 +120,7 @@ namespace HISInterface.Controllers
             parems.Add(Logic.Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
             parems.Add(Logic.Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 200));
 
-            var ds = Logic.Methods.SqlQuery(db, @"zjhis.PKG_ZHYY_MZ.PRC_OutpDoctorQueryBySortId", parems.ToArray());
+            var ds = Logic.Methods.SqlQuery(db, @"PKG_ZHYY_MZ.PRC_OutpDoctorQueryBySortId", parems.ToArray());
             ObjectResult obj = Methods.GetResult(parems, ds);
             //  Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(obj));
             return obj;
@@ -116,6 +133,7 @@ namespace HISInterface.Controllers
         /// 获取医院科目列表以及科室
         /// PRC_OutpRegisterDeptQuery
         /// </summary>
+        /// <returns></returns>
         [HttpPost, Route("getAllDeptRoom")]
         public IActionResult getAllDeptRoom()
         {
@@ -129,7 +147,7 @@ namespace HISInterface.Controllers
             parems.Add(Logic.Methods.GetOutput("ResultSet", OracleDbType.RefCursor, 1024));
             parems.Add(Logic.Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
             parems.Add(Logic.Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 200));
-            var ds = Logic.Methods.SqlQuery(db, @"zjhis.PKG_ZHYY_MZ.PRC_OutpRegisterDeptQuery", parems.ToArray());
+            var ds = Logic.Methods.SqlQuery(db, @"PKG_ZHYY_MZ.PRC_OutpRegisterDeptQuery", parems.ToArray());
             ObjectResult obj = Methods.GetResultAndHaveSon(parems, ds);
             //  Console.WriteLine("返回参数："+JsonConvert.SerializeObject(obj));
             return obj;
@@ -138,6 +156,19 @@ namespace HISInterface.Controllers
 
 
         #region 缴费查询
+        /// <summary>
+        /// 缴费查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "appointmentId":"门诊流水号",
+        ///      "bizType":"",
+        ///      "status":"状态"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("getHospitalItemList")]
         public IActionResult getHospitalItemList([FromBody] dynamic dynamic)
         {
@@ -158,13 +189,24 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
-            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.getHospitalItemList", oralist.ToArray());
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.getHospitalItemList", oralist.ToArray());
             // Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
             return Methods.GetResult(oralist, ds);
         }
         #endregion
 
         #region 国家绩效考核指标查询接口
+        /// <summary>
+        /// 国家绩效考核指标查询接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "date":"查询时间"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("QueryZBInfoByDate")]
         public IActionResult QueryZBInfoByDate([FromBody] dynamic dynamic)
         {
@@ -172,7 +214,7 @@ namespace HISInterface.Controllers
             JObject jobj = Methods.dynamicToJObject(dynamic);
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n国家绩效考核指标查询接口的入参" + jobj.ToString());
             string date = Convert.ToDateTime(jobj.GetValue("date").ToString()).ToString("yyyy-MM-01");
-            string sql = $"select p.target_code,p.target_name,p.target_value from zjhis.per_for_mance p where p.assessment_time=to_date('{date}','yyyy-mm-dd')";
+            string sql = $"select p.target_code,p.target_name,p.target_value from per_for_mance p where p.assessment_time=to_date('{date}','yyyy-mm-dd')";
             var dt = Methods.QuerySql(this.db, sql);
             ArrayList arr = Methods.getJObject(dt);
             if (arr.Count == 0 || arr == null)
@@ -185,6 +227,10 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 住院人数统计
+        /// <summary>
+        /// 住院人数统计
+        /// </summary>
+        /// <returns></returns>
         [HttpPost, Route("QueryInMainNum")]
         public IActionResult QueryInMainNum()
         {
@@ -192,7 +238,7 @@ namespace HISInterface.Controllers
             //JObject jobj = Methods.dynamicToJObject(dynamic);
             //string date = Convert.ToDateTime(jobj.GetValue("date").ToString()).ToString("yyyy-MM-01");
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n住院人数统计无入参");
-            string sql = $"select   count(*) \"InMainCount\"   from zjhis.fin_ipr_inmaininfo a where a.in_state = 'I' and a.patient_no not like '%B%'  and a.dept_code not in  ('0120','0124')";
+            string sql = $"select   count(*) \"InMainCount\"   from fin_ipr_inmaininfo a where a.in_state = 'I' and a.patient_no not like '%B%'  and a.dept_code not in  ('0120','0124')";
             var dt = Methods.QuerySql(this.db, sql);
             ArrayList arr = Methods.getJObject(dt);
             if (arr.Count == 0 || arr == null)
@@ -205,6 +251,10 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 门诊挂号人数统计
+        /// <summary>
+        /// 门诊挂号人数统计
+        /// </summary>
+        /// <returns></returns>
         [HttpPost, Route("QueryRegisterNum")]
         public IActionResult QueryRegisterNum()
         {
@@ -212,7 +262,7 @@ namespace HISInterface.Controllers
             //JObject jobj = Methods.dynamicToJObject(dynamic);
             //string date = Convert.ToDateTime(jobj.GetValue("date").ToString()).ToString("yyyy-MM-01");
             Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n挂号人数统计无入参");
-            string sql = $"select count(*) \"RegCount\" from zjhis.fin_opr_register a where a.reg_date > trunc(sysdate) and a.reg_date < trunc(sysdate) + 1  and a.trans_type = '1'  and not exists(select 1  from zjhis.fin_opr_register b  where b.clinic_code = a.clinic_code  and b.trans_type = '2')";
+            string sql = $"select count(*) \"RegCount\" from fin_opr_register a where a.reg_date > trunc(sysdate) and a.reg_date < trunc(sysdate) + 1  and a.trans_type = '1'  and not exists(select 1  from fin_opr_register b  where b.clinic_code = a.clinic_code  and b.trans_type = '2')";
             var dt = Methods.QuerySql(this.db, sql);
             ArrayList arr = Methods.getJObject(dt);
             if (arr.Count == 0 || arr == null)
@@ -226,6 +276,20 @@ namespace HISInterface.Controllers
 
 
         #region 清单查询
+        /// <summary>
+        /// 清单查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "hospitalNo":"门诊流水号",
+        ///      "type":"业务类别",
+        ///      "patientName":"患者姓名",
+        ///      "date":"查询时间"
+        ///  }
+        /// </remarks>
+        /// <param name="Obj"></param>
+        /// <returns></returns>
         [HttpPost, Route("getHospitalListing")]
         public IActionResult getHospitalListing(dynamic Obj)//直接点参数
         {
@@ -250,7 +314,7 @@ namespace HISInterface.Controllers
             parems.Add(Logic.Methods.GetOutput("ReturnCode", OracleDbType.Int32, 200));
             parems.Add(Logic.Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 200));
 
-            var ds = Logic.Methods.SqlQuery(db, @"zjhis.PKG_ZHYY_MZ.GetQDForDate", parems.ToArray());
+            var ds = Logic.Methods.SqlQuery(db, @"PKG_ZHYY_MZ.GetQDForDate", parems.ToArray());
             if (job.GetValue("type").ToString() == "2")
             {
                 ArrayList arr = Methods.getJObject(ds);
@@ -277,6 +341,17 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 挂号看诊状态查询接口
+        /// <summary>
+        /// 挂号看诊状态查询接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "CardNo":"患者卡号",
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("QueryRegStatus")]
         public IActionResult QueryRegStatus([FromBody] dynamic dynamic)
         {
@@ -295,13 +370,25 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
-            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.QueryRegStatus", oralist.ToArray());
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.QueryRegStatus", oralist.ToArray());
             //Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
             return Methods.GetResult(oralist, ds);
         }
         #endregion
 
         #region 住院患者基本信息查询接口
+        /// <summary>
+        /// 住院患者基本信息查询接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "hospitalNo":"患者卡号",
+        ///      "type":"1 省直医院"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("queryPatientInfoByHospitalNo")]
         public IActionResult queryPatientInfoByHospitalNo([FromBody] dynamic dynamic)
         {
@@ -331,6 +418,13 @@ namespace HISInterface.Controllers
         /// <summary>
         /// 获取科室未来15天的医生排班情况
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "deptId":"科室id",
+        ///      "hospitalId":"医院id默认1"
+        ///  }
+        /// </remarks>
         /// <param name="Obj"></param>
         /// <returns></returns>
         [HttpPost, Route("getDoctorByWL15")]
@@ -355,7 +449,7 @@ namespace HISInterface.Controllers
             parems.Add(Logic.Methods.GetOutput("ReturnCode", OracleDbType.Int32, 200));
             parems.Add(Logic.Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 200));
 
-            var ds = Logic.Methods.SqlQuery(db, @"zjhis.PKG_ZHYY_MZ.PRC_DoctorQueryToWL15", parems.ToArray());
+            var ds = Logic.Methods.SqlQuery(db, @"PKG_ZHYY_MZ.PRC_DoctorQueryToWL15", parems.ToArray());
             ObjectResult obj = Methods.GetResult(parems, ds);
             //Console.WriteLine("返回参数：\n" + JsonConvert.SerializeObject(obj));
             return obj;
@@ -363,6 +457,19 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 电子发票查询接口
+        /// <summary>
+        /// 挂号订单查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "patientId":"门诊卡号",
+        ///      "begin":"开始时间",
+        ///      "end":"结束时间"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("QueryEinvoiceBill")]
         public IActionResult QueryEinvoiceBill([FromBody] dynamic dy)
         {
@@ -391,7 +498,7 @@ namespace HISInterface.Controllers
                 start = System.DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd HH:mm:ss");
                 End = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             }
-            string sql = "select  e.inpatient_no as \"inpatientno\", e.patient_no as \"patientno\", e.card_no as  \"cardno\",  e.hisinvoice_no as \"hisinvoiceno\",  e.his_name as \"hisname\",  replace(to_char(e.pictureurl),'http://172.22.156.72:7001','https://api.lizhi.co') as \"pictureurl\",  e.tot_cost as \"totcost\", e.oper_date as \"operdate\" from zjhis.fin_com_einvoicebill e where e.vaild_flag = '1' and e.cancel_flag = '1' and e.exe_flag = '1'  and e.patient_no is not null   and e.patient_no = '{0}'  and e.oper_date >= to_date('{1}', 'yyyy-mm-dd hh24:mi:ss') and e.oper_date < to_date('{2}', 'yyyy-mm-dd hh24:mi:ss') union all  select e.inpatient_no as \"inpatientno\", e.patient_no as \"patientno\", e.card_no as  \"cardno\",  e.hisinvoice_no as \"hisinvoiceno\", e.his_name as \"hisname\", replace(to_char(e.pictureurl),'http://172.22.156.72:7001','https://api.lizhi.co') as \"pictureurl\",  e.tot_cost as \"totcost\",  e.oper_date as \"operdate\" from zjhis.fin_com_einvoicebill e where e.vaild_flag = '1' and e.cancel_flag = '1'  and e.exe_flag = '1'   and e.card_no is not null  and e.card_no = '{0}' and e.oper_date >= to_date('{1}', 'yyyy-mm-dd hh24:mi:ss')   and e.oper_date < to_date('{2}', 'yyyy-mm-dd hh24:mi:ss')";
+            string sql = "select  e.inpatient_no as \"inpatientno\", e.patient_no as \"patientno\", e.card_no as  \"cardno\",  e.hisinvoice_no as \"hisinvoiceno\",  e.his_name as \"hisname\",  replace(to_char(e.pictureurl),'http://172.22.156.72:7001','https://api.lizhi.co') as \"pictureurl\",  e.tot_cost as \"totcost\", e.oper_date as \"operdate\" from fin_com_einvoicebill e where e.vaild_flag = '1' and e.cancel_flag = '1' and e.exe_flag = '1'  and e.patient_no is not null   and e.patient_no = '{0}'  and e.oper_date >= to_date('{1}', 'yyyy-mm-dd hh24:mi:ss') and e.oper_date < to_date('{2}', 'yyyy-mm-dd hh24:mi:ss') union all  select e.inpatient_no as \"inpatientno\", e.patient_no as \"patientno\", e.card_no as  \"cardno\",  e.hisinvoice_no as \"hisinvoiceno\", e.his_name as \"hisname\", replace(to_char(e.pictureurl),'http://172.22.156.72:7001','https://api.lizhi.co') as \"pictureurl\",  e.tot_cost as \"totcost\",  e.oper_date as \"operdate\" from fin_com_einvoicebill e where e.vaild_flag = '1' and e.cancel_flag = '1'  and e.exe_flag = '1'   and e.card_no is not null  and e.card_no = '{0}' and e.oper_date >= to_date('{1}', 'yyyy-mm-dd hh24:mi:ss')   and e.oper_date < to_date('{2}', 'yyyy-mm-dd hh24:mi:ss')";
             sql = string.Format(sql, PatientId, start, End);
             var dt = Methods.QuerySql(this.db, sql);
             ArrayList arr = Methods.getJObject(dt);
@@ -405,6 +512,18 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 手机短信接口
+        /// <summary>
+        /// 手机短信接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "phone":"电话号码",
+        ///      "content":"短信内容"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("GetSmsInfo")]
         public IActionResult GetSmsInfo([FromBody] dynamic dynamic)
         {
@@ -420,6 +539,11 @@ namespace HISInterface.Controllers
 
 
         #region 获取扫码支付二维码
+        /// <summary>
+        /// 获取扫码支付二维码
+        /// </summary>
+        /// <param name="ClinicNo">门诊流水号</param>
+        /// <returns></returns>
         [HttpGet, Route("GetQRImage")]
         public IActionResult GetQRImage(string ClinicNo)
         {
@@ -431,6 +555,24 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 挂号订单查询
+        /// <summary>
+        /// 挂号订单查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "registerNo":"门诊流水号",
+        ///     "patientName":"患者姓名",
+        ///     "Status":"交易状态 1 正交易 2 负交易",
+        ///     "doctorName":"医生名称",
+        ///      "startTime":"开始时间",
+        ///     "endTime":"结束时间",
+        ///     "Page":"页数",
+        ///     "pageSize":"每页行数"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("GetRegOrderInfo")]
         public IActionResult GetRegOrderInfo([FromBody] dynamic dynamic)
         {
@@ -465,7 +607,7 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
 
-            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_REGORDERQUERY", oralist.ToArray());
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_REGORDERQUERY", oralist.ToArray());
 
             // Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
             return Methods.GetResult(oralist, ds, page, pageNum);
@@ -474,6 +616,22 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 根据医生选择缴费查询
+        /// <summary>
+        /// 根据医生选择缴费查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "clinicNo":"门诊流水号",
+        ///     "patientName":"患者姓名",
+        ///     "Status":"缴费状态1 已缴费 0 待缴费 ",
+        ///     "doctorName":"医生名称",
+        ///      "startTime":"开始时间",
+        ///     "endTime":"结束时间"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("getHospitalItemListByDoctor")]
         public IActionResult getHospitalItemListByDoctor([FromBody] dynamic dynamic)
         {
@@ -498,7 +656,7 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
 
-            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetHosItemListByDoc", oralist.ToArray());
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_GetHosItemListByDoc", oralist.ToArray());
             // Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
             if (!j.ContainsKey("Page"))
             {
@@ -516,6 +674,11 @@ namespace HISInterface.Controllers
 
 
         #region 缴费明细查询
+        /// <summary>
+        /// 缴费明细查询
+        /// </summary>
+        /// <param name="orderNo">订单号RecipeNo</param>
+        /// <returns></returns>
         [HttpGet, Route("getHosItemDetail")]
         public IActionResult getHosItemDetail(string orderNo)
         {
@@ -534,13 +697,19 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
 
-            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetHosItemDetail", oralist.ToArray());
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_GetHosItemDetail", oralist.ToArray());
             return Methods.GetResult(oralist, ds);
         }
         #endregion
 
 
         #region 收入金额订单数量接口
+        /// <summary>
+        /// 收入金额订单数量接口
+        /// </summary>
+        /// <param name="start">开始时间</param>
+        /// <param name="end">结束时间</param>
+        /// <returns></returns>
         [HttpGet, Route("getHosItemNumList")]
         public IActionResult getHosItemNumList(string start, string end)
         {
@@ -560,12 +729,17 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
 
-            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetTotal", oralist.ToArray());
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_GetTotal", oralist.ToArray());
             return Methods.GetResult(oralist, ds);
         }
         #endregion
 
         #region 交易金额走势图接口
+        /// <summary>
+        /// 交易金额走势图接口
+        /// </summary>
+        /// <param name="Type">查询类别1 查询 本月  2 查询本年</param>
+        /// <returns></returns>
         [HttpGet, Route("getHosItemNumListByType")]
         public IActionResult getHosItemNumListByType(int Type)
         {
@@ -584,12 +758,17 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
 
-            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetTotalByDate", oralist.ToArray());
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_GetTotalByDate", oralist.ToArray());
             return Methods.GetResult(oralist, ds);
         }
         #endregion
 
         #region 各业务交易金额接口
+        /// <summary>
+        /// 各业务交易金额接口
+        /// </summary>
+        /// <param name="Type">查询类别1 查询 本月  2 查询本年</param>
+        /// <returns></returns>
         [HttpGet, Route("getHosItemNumListByYW")]
         public IActionResult getHosItemNumListByYW(int Type)
         {
@@ -608,13 +787,17 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
 
-            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetTotalByType", oralist.ToArray());
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_GetTotalByType", oralist.ToArray());
             return Methods.GetResult(oralist, ds);
         }
         #endregion
 
 
         #region HIS账单接口(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+        /// <summary>
+        /// HIS账单接口(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Route("GetyesterdayTotal")]
         public IActionResult GetyesterdayTotal()
         {
@@ -633,7 +816,7 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
 
-            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_GetyesterdayTotal", oralist.ToArray());
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_GetyesterdayTotal", oralist.ToArray());
             return Methods.GetResult(oralist, ds);
         }
         #endregion

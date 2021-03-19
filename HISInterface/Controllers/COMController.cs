@@ -36,7 +36,10 @@ namespace HISInterface.Controllers
       
         public DB db { get; set; }
         public IConfiguration configuration { get; }
-
+        /// <summary>
+        /// 测试api
+        /// </summary>
+        /// <returns></returns>
         [HttpGet,Route("Get")]
         public IActionResult Get()
         {
@@ -46,6 +49,14 @@ namespace HISInterface.Controllers
         /// <summary>
         /// 获取科室的医生排班情况
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "deptId":"科室id",
+        ///      "date":"时间",
+        ///      "hospitalId":""
+        ///  }
+        /// </remarks>
         /// <param name="Obj"></param>
         /// <returns></returns>
         [HttpPost, Route("getDoctorScheduling")]
@@ -75,7 +86,7 @@ namespace HISInterface.Controllers
             ObjectResult obj = Methods.GetResult(parems, ds);
         //    Console.WriteLine("返回参数：\n"+JsonConvert.SerializeObject(obj));
             return obj;
-        } 
+        }
         #endregion
 
 
@@ -83,6 +94,12 @@ namespace HISInterface.Controllers
         /// <summary>
         /// 获得医生某天排班序号
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "shemaId":"排班id"
+        ///  }
+        /// </remarks>
         /// <param name="Obj"></param>
         /// <returns></returns>
         [HttpPost, Route("getDoctorAppointmentOrders")]
@@ -110,7 +127,7 @@ namespace HISInterface.Controllers
             ObjectResult obj = Methods.GetResult(parems, ds);
           //  Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(obj));
             return obj;
-        } 
+        }
         #endregion
 
 
@@ -119,6 +136,7 @@ namespace HISInterface.Controllers
         /// 获取医院科目列表以及科室
         /// PRC_OutpRegisterDeptQuery
         /// </summary>
+        /// <returns></returns>
         [HttpPost, Route("getAllDeptRoom")]
         public IActionResult getAllDeptRoom()
         {
@@ -141,6 +159,19 @@ namespace HISInterface.Controllers
 
 
         #region 缴费查询
+        /// <summary>
+        /// 缴费查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "appointmentId":"门诊流水号",
+        ///      "bizType":"",
+        ///      "status":"状态"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost,Route("getHospitalItemList")]
         public IActionResult getHospitalItemList([FromBody] dynamic dynamic)
         {
@@ -168,6 +199,17 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 国家绩效考核指标查询接口
+        /// <summary>
+        /// 国家绩效考核指标查询接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "date":"查询时间"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost,Route("QueryZBInfoByDate")]
         public IActionResult QueryZBInfoByDate([FromBody]dynamic dynamic)
         {
@@ -188,6 +230,10 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 住院人数统计
+        /// <summary>
+        /// 住院人数统计
+        /// </summary>
+        /// <returns></returns>
         [HttpPost, Route("QueryInMainNum")]
         public IActionResult QueryInMainNum()
         {
@@ -208,6 +254,10 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 门诊挂号人数统计
+        /// <summary>
+        /// 门诊挂号人数统计
+        /// </summary>
+        /// <returns></returns>
         [HttpPost, Route("QueryRegisterNum")]
         public IActionResult QueryRegisterNum()
         {
@@ -229,6 +279,20 @@ namespace HISInterface.Controllers
 
 
         #region 清单查询
+        /// <summary>
+        /// 清单查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "hospitalNo":"门诊流水号",
+        ///      "type":"业务类别",
+        ///      "patientName":"患者姓名",
+        ///      "date":"查询时间"
+        ///  }
+        /// </remarks>
+        /// <param name="Obj"></param>
+        /// <returns></returns>
         [HttpPost, Route("getHospitalListing")]
         public IActionResult getHospitalListing(dynamic Obj)//直接点参数
         {
@@ -280,6 +344,17 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 挂号看诊状态查询接口
+        /// <summary>
+        /// 挂号看诊状态查询接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "CardNo":"患者卡号",
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("QueryRegStatus")]
         public IActionResult QueryRegStatus([FromBody] dynamic dynamic)
         {
@@ -305,6 +380,18 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 住院患者基本信息查询接口
+        /// <summary>
+        /// 住院患者基本信息查询接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "hospitalNo":"患者卡号",
+        ///      "type":"1 省直医院"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("queryPatientInfoByHospitalNo")]
         public IActionResult queryPatientInfoByHospitalNo([FromBody] dynamic dynamic)
         {
@@ -334,6 +421,13 @@ namespace HISInterface.Controllers
         /// <summary>
         /// 获取科室未来15天的医生排班情况
         /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "deptId":"科室id",
+        ///      "hospitalId":"医院id默认1"
+        ///  }
+        /// </remarks>
         /// <param name="Obj"></param>
         /// <returns></returns>
         [HttpPost, Route("getDoctorByWL15")]
@@ -366,6 +460,19 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 电子发票查询接口
+        /// <summary>
+        /// 挂号订单查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "patientId":"门诊卡号",
+        ///      "begin":"开始时间",
+        ///      "end":"结束时间"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("QueryEinvoiceBill")]
         public IActionResult QueryEinvoiceBill([FromBody] dynamic dy)
         {
@@ -408,6 +515,18 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 手机短信接口
+        /// <summary>
+        /// 手机短信接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "phone":"电话号码",
+        ///      "content":"短信内容"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost,Route("GetSmsInfo")]
         public IActionResult GetSmsInfo([FromBody ] dynamic dynamic)
         {
@@ -420,9 +539,14 @@ namespace HISInterface.Controllers
         }
         #endregion
 
-        
+
 
         #region 获取扫码支付二维码
+        /// <summary>
+        /// 获取扫码支付二维码
+        /// </summary>
+        /// <param name="ClinicNo">门诊流水号</param>
+        /// <returns></returns>
         [HttpGet,Route("GetQRImage")]
         public IActionResult GetQRImage(string ClinicNo)
         {
@@ -434,6 +558,24 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 挂号订单查询
+        /// <summary>
+        /// 挂号订单查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "registerNo":"门诊流水号",
+        ///     "patientName":"患者姓名",
+        ///     "Status":"交易状态 1 正交易 2 负交易",
+        ///     "doctorName":"医生名称",
+        ///      "startTime":"开始时间",
+        ///     "endTime":"结束时间",
+        ///     "Page":"页数",
+        ///     "pageSize":"每页行数"
+        ///  }
+        /// </remarks>
+        /// <param name="dynamic"></param>
+        /// <returns></returns>
         [HttpPost, Route("GetRegOrderInfo")]
         public IActionResult GetRegOrderInfo([FromBody] dynamic dynamic)
         {
@@ -483,12 +625,12 @@ namespace HISInterface.Controllers
         /// <remarks>
         /// >参数实例
         /// {
-        ///      "clinicNo":"",
-        ///     "patientName":"",
-        ///     "Status":"",
-        ///     "doctorName":"",
-        ///      "startTime":"",
-        ///     "endTime":""
+        ///      "clinicNo":"门诊流水号",
+        ///     "patientName":"患者姓名",
+        ///     "Status":"缴费状态1 已缴费 0 待缴费 ",
+        ///     "doctorName":"医生名称",
+        ///      "startTime":"开始时间",
+        ///     "endTime":"结束时间"
         ///  }
         /// </remarks>
         /// <param name="dynamic"></param>
@@ -535,6 +677,11 @@ namespace HISInterface.Controllers
 
 
         #region 缴费明细查询
+        /// <summary>
+        /// 缴费明细查询
+        /// </summary>
+        /// <param name="orderNo">订单号RecipeNo</param>
+        /// <returns></returns>
         [HttpGet, Route("getHosItemDetail")]
         public IActionResult getHosItemDetail(string orderNo)
         {
@@ -560,6 +707,12 @@ namespace HISInterface.Controllers
 
 
         #region 收入金额订单数量接口
+        /// <summary>
+        /// 收入金额订单数量接口
+        /// </summary>
+        /// <param name="start">开始时间</param>
+        /// <param name="end">结束时间</param>
+        /// <returns></returns>
         [HttpGet, Route("getHosItemNumList")]
         public IActionResult getHosItemNumList(string start,string end)
         {
@@ -585,6 +738,11 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 交易金额走势图接口
+        /// <summary>
+        /// 交易金额走势图接口
+        /// </summary>
+        /// <param name="Type">查询类别1 查询 本月  2 查询本年</param>
+        /// <returns></returns>
         [HttpGet, Route("getHosItemNumListByType")]
         public IActionResult getHosItemNumListByType(int Type)
         {
@@ -609,6 +767,11 @@ namespace HISInterface.Controllers
         #endregion
 
         #region 各业务交易金额接口
+        /// <summary>
+        /// 各业务交易金额接口
+        /// </summary>
+        /// <param name="Type">查询类别1 查询 本月  2 查询本年</param>
+        /// <returns></returns>
         [HttpGet, Route("getHosItemNumListByYW")]
         public IActionResult getHosItemNumListByYW(int Type)
         {
@@ -634,6 +797,10 @@ namespace HISInterface.Controllers
 
 
         #region HIS账单接口(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+        /// <summary>
+        /// HIS账单接口(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Route("GetyesterdayTotal")]
         public IActionResult GetyesterdayTotal()
         {

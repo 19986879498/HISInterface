@@ -31,6 +31,10 @@ namespace HISInterface.Controllers
 
         public DB db { get; set; }
 
+        /// <summary>
+        /// 测试api
+        /// </summary>
+        /// <returns></returns>
         [HttpGet, Route("Get")]
         public IActionResult Get()
         {
@@ -43,6 +47,17 @@ namespace HISInterface.Controllers
             return new ObjectResult(arr);
 
         }
+        /// <summary>
+        /// 查询检查报头
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "cardNo":"门诊卡号"
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost, Route("queryInspectionReport")]
         public IActionResult queryInspectionReport([FromBody] dynamic dy)
         {
@@ -58,7 +73,7 @@ namespace HISInterface.Controllers
             {
                 return new JsonResult(new { msg = "你输入的参数有误！", data = "参数错误", code = 403 });
             }
-            string sql = $"select  r.lab_apply_no \"id\", r.paritemname \"title\",r.micro_flag \"iswsw\",r.patient_id \"patientId\",\'' \"patientName\",r.report_date_time \"sendTime\",\'枝江市人民医院' \"hospitalName\" from v_jhmk_lis_report r where   (r.patient_id='{patientno}' and r.file_visit_type='2') or (r.patient_id = '{patientno}' and r.file_visit_type = '0') and r.is_valid = '1'";
+            string sql = $"select  r.lab_apply_no \"id\", r.paritemname \"title\",r.micro_flag \"iswsw\",r.patient_id \"patientId\",\'' \"patientName\",r.report_date_time \"sendTime\",\'枝江市人民医院' \"hospitalName\" from v_lis_report_zhyy r where   (r.patient_id='{patientno}' and r.file_visit_type='2') or (r.patient_id = '{patientno}' and r.file_visit_type = '0') and r.is_valid = '1'";
             var dt = Methods.SqlQuery(db, sql);
             ArrayList arr = Methods.getJObject(dt);
             if (arr.Count == 0 || arr == null)
@@ -67,6 +82,18 @@ namespace HISInterface.Controllers
             }
             return new JsonResult(new { msg = "查询成功！", data = arr, code = 200 });
         }
+        /// <summary>
+        /// 检查详情查询
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "id":"检查id",
+        ///      "iswsw":"是否微生物 1 是 0否"
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost, Route("queryInspectionReportDetails")]
         public IActionResult queryInspectionReportDetails([FromBody] dynamic dy)
         {
@@ -87,11 +114,11 @@ namespace HISInterface.Controllers
             string sql = string.Empty;
             if (iswsw == "0")
             {
-                sql = $"select p.lab_item_name \"item\",p.lab_item_name \"itemName\", p.lab_item_sname \"name\", p.result  \"value\",p.result_range \"reference\", p.units \"unit\", p.status \"status\", ' '   \"remark\"  from v_jhmk_report_item p where p.lis_apply_no = '{id}'";
+                sql = $"select p.lab_item_name \"item\",p.lab_item_name \"itemName\", p.lab_item_sname \"name\", p.result  \"value\",p.result_range \"reference\", p.units \"unit\", p.status \"status\", ' '   \"remark\"  from v_report_item_zhyy p where p.lis_apply_no = '{id}'";
             }
             else if (iswsw == "1")
             {
-                sql = $"select  m.lab_item_name \"item\",m.micro_name \"itemName\",m.anti_name \"name\",m.susquan  \"value\",m.ref_rang \"reference\",'' \"unit\",m.suscept \"status\",m.desc_name \"remark\"  from v_jhmk_report_micro m where m.lab_apply_no = '{id}'";
+                sql = $"select  m.lab_item_name \"item\",m.micro_name \"itemName\",m.anti_name \"name\",m.susquan  \"value\",m.ref_rang \"reference\",'' \"unit\",m.suscept \"status\",m.desc_name \"remark\"  from v_report_micro_zhyy m where m.lab_apply_no = '{id}'";
             }
             else
             {
@@ -120,6 +147,17 @@ namespace HISInterface.Controllers
             }
 
         }
+        /// <summary>
+        /// 查询检验报告
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "cardNo":"门诊卡号"
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost, Route("queryMedicalReport")]
         public IActionResult queryMedicalReport([FromBody] dynamic dy)
         {
@@ -135,7 +173,7 @@ namespace HISInterface.Controllers
             {
                 return new JsonResult(new { msg = "你输入的参数有误！", data = "参数错误", code = 403 });
             }
-            string sql = $"select e.EXAM_APPLY_NO \"id\", e.EXAM_ITEM_CODE \"title\",e.PATIENT_ID \"patientId\",e.REPORT_PHYSICIAN \"patientName\",e.EXAM_DATE_TIME \"sendTime\",'枝江市人民医院' \"hospitalName\",e.REPORT_TEXT \"describe\",e.REPORT_TEXT_1 \"result\"  from v_jh_exam_report e where e.PATIENT_ID='{CardNo}'";
+            string sql = $"select e.EXAM_APPLY_NO \"id\", e.EXAM_ITEM_CODE \"title\",e.PATIENT_ID \"patientId\",e.REPORT_PHYSICIAN \"patientName\",e.EXAM_DATE_TIME \"sendTime\",'枝江市人民医院' \"hospitalName\",e.REPORT_TEXT \"describe\",e.REPORT_TEXT_1 \"result\"  from v_exam_report_zhyy e where e.mzh='{CardNo}' or e.zyh='{CardNo}'";
             var dt = Methods.SqlQuery(db, sql);
             ArrayList arr = Methods.getJObject(dt);
             if (arr.Count == 0 || arr == null)
@@ -146,7 +184,24 @@ namespace HISInterface.Controllers
             return new JsonResult(new { msg = "查询成功！", data = arr, code = 200 });
 
         }
+
         #region 住院预交金收取接口
+        /// <summary>
+        /// 住院预交金收取接口
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///      "InpatientNo":"住院流水号",
+        ///      "IdCard":"身份证",
+        ///      "TransNo":"交易流水",
+        ///      "YJCost":"预交金额",
+        ///      "YJTime":"预交时间",
+        ///      "PayMode":"支付方式"
+        ///  }
+        /// </remarks>
+        /// <param name="dy"></param>
+        /// <returns></returns>
         [HttpPost, Route("PayInPrepayCost")]
         public IActionResult PayInPrepayCost([FromBody] dynamic dy)
         {
@@ -161,7 +216,7 @@ namespace HISInterface.Controllers
                 oralist.Add(Methods.GetInput("IdCard", j.GetValue("IdCard").ToString()));
                 oralist.Add(Methods.GetInput("TransNo", j.GetValue("TransNo").ToString()));
                 oralist.Add(new OracleParameter() { ParameterName = "YJCost", OracleDbType = OracleDbType.Decimal, Value = Convert.ToDecimal(j.GetValue("YJCost").ToString()) });
-                oralist.Add(new OracleParameter() { ParameterName = "YJTime", OracleDbType = OracleDbType.Date, Value =Convert.ToDateTime(j.GetValue("YJTime").ToString()) });
+                oralist.Add(new OracleParameter() { ParameterName = "YJTime", OracleDbType = OracleDbType.Date, Value = Convert.ToDateTime(j.GetValue("YJTime").ToString()) });
                 oralist.Add(Methods.GetInput("PayMode", j.GetValue("PayMode").ToString()));
             }
             catch (Exception)
@@ -172,12 +227,12 @@ namespace HISInterface.Controllers
             oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
             oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 200));
             #endregion
-            var ds = Methods.SqlQuery(db, "zjhis.PKG_ZHYY_MZ.PRC_InPrepayPayedConfirm", oralist.ToArray());
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_InPrepayPayedConfirm", oralist.ToArray());
             ObjectResult resobj = Methods.GetResult(oralist, ds);
             Console.WriteLine("返回数据：\n" + JsonConvert.SerializeObject(resobj.Value));
             return resobj;
         }
-        #endregion 
+        #endregion
         /// <summary>
         /// 切换数据库的方法
         /// </summary>
