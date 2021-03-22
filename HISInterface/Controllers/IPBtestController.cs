@@ -187,7 +187,7 @@ namespace HISInterface.Controllers
 
         #region 住院预交金收取接口
         /// <summary>
-        /// 住院预交金收取接口
+        /// 住院预交金收取接口PRC_InPrepayPayedConfirm
         /// </summary>
         /// <remarks>
         /// >参数实例

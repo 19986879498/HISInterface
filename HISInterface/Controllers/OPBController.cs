@@ -47,7 +47,7 @@ namespace HISInterface.Controllers
         }
         #region 注册就诊卡
         /// <summary>
-        /// 注册就诊卡
+        /// 注册就诊卡prc_outppatmedcardsell
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -101,7 +101,7 @@ namespace HISInterface.Controllers
 
         #region 绑定就诊卡
         /// <summary>
-        /// 绑定就诊卡
+        /// 绑定就诊卡PRC_OutpPatMedCardCheck
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -147,7 +147,7 @@ namespace HISInterface.Controllers
 
         #region 锁号操作
         /// <summary>
-        /// 锁号的接口
+        /// 锁号的接口PRC_OutpRegisterLock
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -205,7 +205,7 @@ namespace HISInterface.Controllers
 
         #region 挂号确认
         /// <summary>
-        /// 挂号确认的接口
+        /// 挂号确认的接口PRC_OutpRegisterConfirm
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -259,7 +259,7 @@ namespace HISInterface.Controllers
 
         #region 门诊缴费操作
         /// <summary>
-        /// 门诊缴费操作
+        /// 门诊缴费操作PRC_OutpBillsPayedConfirm
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -314,7 +314,7 @@ namespace HISInterface.Controllers
 
         #region 挂号退号
         /// <summary>
-        /// 挂号退号
+        /// 挂号退号PRC_OutpRegisterCancel
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -351,7 +351,7 @@ namespace HISInterface.Controllers
 
         #region 加号查询
         /// <summary>
-        /// 加号查询
+        /// 加号查询PRC_RegisterAddQuery
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -392,7 +392,7 @@ namespace HISInterface.Controllers
 
         #region 加号确认接口
         /// <summary>
-        /// 加号确认接口
+        /// 加号确认接口PRC_RegisterAddConfirm
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -442,7 +442,7 @@ namespace HISInterface.Controllers
 
         #region 扫码加号查询
         /// <summary>
-        /// 扫码加号查询
+        /// 扫码加号查询PRC_RegisterSMAddQuery
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -482,7 +482,7 @@ namespace HISInterface.Controllers
 
         #region 扫码挂号
         /// <summary>
-        /// 扫码挂号
+        /// 扫码挂号PRC_OutpRegisterSMAdd
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -533,7 +533,7 @@ namespace HISInterface.Controllers
 
         #region 其他费用缴费接口
         /// <summary>
-        /// 其他费用缴费接口
+        /// 其他费用缴费接口PRC_OtherFeePayedConfirm
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -597,7 +597,7 @@ namespace HISInterface.Controllers
 
         #region 修改患者基本信息接口
         /// <summary>
-        /// 修改患者基本信息接口
+        /// 修改患者基本信息接口PRC_UpdatePatientInfo
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -647,7 +647,7 @@ namespace HISInterface.Controllers
 
         #region 预约检查新型冠状核酸检测
         /// <summary>
-        /// 预约检查新型冠状核酸检测
+        /// 预约检查新型冠状核酸检测PRC_CHECKITEM_APPLY
         /// </summary>
         /// <remarks>
         /// >参数实例

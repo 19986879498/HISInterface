@@ -47,7 +47,7 @@ namespace HISInterface.Controllers
         }
         #region 获取科室的医生排班情况
         /// <summary>
-        /// 获取科室的医生排班情况
+        /// 获取科室的医生排班情况PRC_OutpDoctorQuery
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -92,7 +92,7 @@ namespace HISInterface.Controllers
 
         #region 获得医生某天排班序号
         /// <summary>
-        /// 获得医生某天排班序号
+        /// 获得医生某天排班序号PRC_OutpDoctorQueryBySortId
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -133,7 +133,7 @@ namespace HISInterface.Controllers
 
         #region 获取医院科目列表以及科室
         /// <summary>
-        /// 获取医院科目列表以及科室
+        /// 获取医院科目列表以及科室PRC_OutpRegisterDeptQuery
         /// PRC_OutpRegisterDeptQuery
         /// </summary>
         /// <returns></returns>
@@ -160,7 +160,7 @@ namespace HISInterface.Controllers
 
         #region 缴费查询
         /// <summary>
-        /// 缴费查询
+        /// 缴费查询getHospitalItemList
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -280,7 +280,7 @@ namespace HISInterface.Controllers
 
         #region 清单查询
         /// <summary>
-        /// 清单查询
+        /// 清单查询GetQDForDate
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -345,7 +345,7 @@ namespace HISInterface.Controllers
 
         #region 挂号看诊状态查询接口
         /// <summary>
-        /// 挂号看诊状态查询接口
+        /// 挂号看诊状态查询接口QueryRegStatus
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -419,7 +419,7 @@ namespace HISInterface.Controllers
 
         #region 获取科室未来15天的医生排班情况
         /// <summary>
-        /// 获取科室未来15天的医生排班情况
+        /// 获取科室未来15天的医生排班情况PRC_DoctorQueryToWL15
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -559,7 +559,7 @@ namespace HISInterface.Controllers
 
         #region 挂号订单查询
         /// <summary>
-        /// 挂号订单查询
+        /// 挂号订单查询PRC_REGORDERQUERY
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -620,7 +620,7 @@ namespace HISInterface.Controllers
 
         #region 根据医生选择缴费查询
         /// <summary>
-        /// 根据医生选择缴费查询
+        /// 根据医生选择缴费查询PRC_GetHosItemListByDoc
         /// </summary>
         /// <remarks>
         /// >参数实例
@@ -678,7 +678,7 @@ namespace HISInterface.Controllers
 
         #region 缴费明细查询
         /// <summary>
-        /// 缴费明细查询
+        /// 缴费明细查询PRC_GetHosItemDetail
         /// </summary>
         /// <param name="orderNo">订单号RecipeNo</param>
         /// <returns></returns>
@@ -708,7 +708,7 @@ namespace HISInterface.Controllers
 
         #region 收入金额订单数量接口
         /// <summary>
-        /// 收入金额订单数量接口
+        /// 收入金额订单数量接口PRC_GetTotal
         /// </summary>
         /// <param name="start">开始时间</param>
         /// <param name="end">结束时间</param>
@@ -739,7 +739,7 @@ namespace HISInterface.Controllers
 
         #region 交易金额走势图接口
         /// <summary>
-        /// 交易金额走势图接口
+        /// 交易金额走势图接口PRC_GetTotalByDate
         /// </summary>
         /// <param name="Type">查询类别1 查询 本月  2 查询本年</param>
         /// <returns></returns>
@@ -768,7 +768,7 @@ namespace HISInterface.Controllers
 
         #region 各业务交易金额接口
         /// <summary>
-        /// 各业务交易金额接口
+        /// 各业务交易金额接口PRC_GetTotalByType
         /// </summary>
         /// <param name="Type">查询类别1 查询 本月  2 查询本年</param>
         /// <returns></returns>
@@ -798,7 +798,7 @@ namespace HISInterface.Controllers
 
         #region HIS账单接口(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
         /// <summary>
-        /// HIS账单接口(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+        /// HIS账单接口PRC_GetyesterdayTotal(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
         /// </summary>
         /// <returns></returns>
         [HttpGet, Route("GetyesterdayTotal")]
