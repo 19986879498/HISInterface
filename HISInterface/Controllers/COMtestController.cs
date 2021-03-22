@@ -622,7 +622,7 @@ namespace HISInterface.Controllers
         /// <remarks>
         /// >参数实例
         /// {
-        ///      "clinicNo":"门诊流水号",
+        ///      "recipeNo":"门诊流水号",
         ///     "patientName":"患者姓名",
         ///     "Status":"缴费状态1 已缴费 0 待缴费 ",
         ///     "doctorName":"医生名称",
@@ -641,7 +641,7 @@ namespace HISInterface.Controllers
             List<OracleParameter> oralist = new List<OracleParameter>();
             try
             {
-                oralist.Add(Methods.GetInput("clinicNo", j.GetValue("clinicNo").ToString()));
+                oralist.Add(Methods.GetInput("recipeNo", j.GetValue("recipeNo").ToString()));
                 oralist.Add(Methods.GetInput("patientName", j.GetValue("patientName").ToString()));
                 oralist.Add(Methods.GetInput("Status", j.GetValue("Status").ToString()));
                 oralist.Add(Methods.GetInput("doctorName", j.GetValue("doctorName").ToString()));

@@ -12,7 +12,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMController.getDoctorScheduling(System.Object)">
             <summary>
-            获取科室的医生排班情况
+            获取科室的医生排班情况PRC_OutpDoctorQuery
             </summary>
             <remarks>
             >参数实例
@@ -27,7 +27,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMController.getDoctorAppointmentOrders(System.Object)">
             <summary>
-            获得医生某天排班序号
+            获得医生某天排班序号PRC_OutpDoctorQueryBySortId
             </summary>
             <remarks>
             >参数实例
@@ -40,14 +40,14 @@
         </member>
         <member name="M:HISInterface.Controllers.COMController.getAllDeptRoom">
             <summary>
-            获取医院科目列表以及科室
+            获取医院科目列表以及科室PRC_OutpRegisterDeptQuery
             PRC_OutpRegisterDeptQuery
             </summary>
             <returns></returns>
         </member>
         <member name="M:HISInterface.Controllers.COMController.getHospitalItemList(System.Object)">
             <summary>
-            缴费查询
+            缴费查询getHospitalItemList
             </summary>
             <remarks>
             >参数实例
@@ -87,7 +87,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMController.getHospitalListing(System.Object)">
             <summary>
-            清单查询
+            清单查询GetQDForDate
             </summary>
             <remarks>
             >参数实例
@@ -103,7 +103,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMController.QueryRegStatus(System.Object)">
             <summary>
-            挂号看诊状态查询接口
+            挂号看诊状态查询接口QueryRegStatus
             </summary>
             <remarks>
             >参数实例
@@ -130,7 +130,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMController.getDoctorByWL15(System.Object)">
             <summary>
-            获取科室未来15天的医生排班情况
+            获取科室未来15天的医生排班情况PRC_DoctorQueryToWL15
             </summary>
             <remarks>
             >参数实例
@@ -180,7 +180,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMController.GetRegOrderInfo(System.Object)">
             <summary>
-            挂号订单查询
+            挂号订单查询PRC_REGORDERQUERY
             </summary>
             <remarks>
             >参数实例
@@ -200,7 +200,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMController.getHospitalItemListByDoctor(System.Object)">
             <summary>
-            根据医生选择缴费查询
+            根据医生选择缴费查询PRC_GetHosItemListByDoc
             </summary>
             <remarks>
             >参数实例
@@ -218,14 +218,14 @@
         </member>
         <member name="M:HISInterface.Controllers.COMController.getHosItemDetail(System.String)">
             <summary>
-            缴费明细查询
+            缴费明细查询PRC_GetHosItemDetail
             </summary>
             <param name="orderNo">订单号RecipeNo</param>
             <returns></returns>
         </member>
         <member name="M:HISInterface.Controllers.COMController.getHosItemNumList(System.String,System.String)">
             <summary>
-            收入金额订单数量接口
+            收入金额订单数量接口PRC_GetTotal
             </summary>
             <param name="start">开始时间</param>
             <param name="end">结束时间</param>
@@ -233,21 +233,21 @@
         </member>
         <member name="M:HISInterface.Controllers.COMController.getHosItemNumListByType(System.Int32)">
             <summary>
-            交易金额走势图接口
+            交易金额走势图接口PRC_GetTotalByDate
             </summary>
             <param name="Type">查询类别1 查询 本月  2 查询本年</param>
             <returns></returns>
         </member>
         <member name="M:HISInterface.Controllers.COMController.getHosItemNumListByYW(System.Int32)">
             <summary>
-            各业务交易金额接口
+            各业务交易金额接口PRC_GetTotalByType
             </summary>
             <param name="Type">查询类别1 查询 本月  2 查询本年</param>
             <returns></returns>
         </member>
         <member name="M:HISInterface.Controllers.COMController.GetyesterdayTotal">
             <summary>
-            HIS账单接口(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+            HIS账单接口PRC_GetyesterdayTotal(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
             </summary>
             <returns></returns>
         </member>
@@ -264,7 +264,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getDoctorScheduling(System.Object)">
             <summary>
-            获取科室的医生排班情况
+            获取科室的医生排班情况PRC_OutpDoctorQuery
             </summary>
             <remarks>
             >参数实例
@@ -279,7 +279,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getDoctorAppointmentOrders(System.Object)">
             <summary>
-            获得医生某天排班序号
+            获得医生某天排班序号PRC_OutpDoctorQueryBySortId
             </summary>
             <remarks>
             >参数实例
@@ -292,14 +292,14 @@
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getAllDeptRoom">
             <summary>
-            获取医院科目列表以及科室
+            获取医院科目列表以及科室PRC_OutpRegisterDeptQuery
             PRC_OutpRegisterDeptQuery
             </summary>
             <returns></returns>
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getHospitalItemList(System.Object)">
             <summary>
-            缴费查询
+            缴费查询getHospitalItemList
             </summary>
             <remarks>
             >参数实例
@@ -339,7 +339,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getHospitalListing(System.Object)">
             <summary>
-            清单查询
+            清单查询GetQDForDate
             </summary>
             <remarks>
             >参数实例
@@ -355,7 +355,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.QueryRegStatus(System.Object)">
             <summary>
-            挂号看诊状态查询接口
+            挂号看诊状态查询接口QueryRegStatus
             </summary>
             <remarks>
             >参数实例
@@ -382,7 +382,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getDoctorByWL15(System.Object)">
             <summary>
-            获取科室未来15天的医生排班情况
+            获取科室未来15天的医生排班情况PRC_DoctorQueryToWL15
             </summary>
             <remarks>
             >参数实例
@@ -432,7 +432,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.GetRegOrderInfo(System.Object)">
             <summary>
-            挂号订单查询
+            挂号订单查询PRC_REGORDERQUERY
             </summary>
             <remarks>
             >参数实例
@@ -452,7 +452,7 @@
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getHospitalItemListByDoctor(System.Object)">
             <summary>
-            根据医生选择缴费查询
+            根据医生选择缴费查询PRC_GetHosItemListByDoc
             </summary>
             <remarks>
             >参数实例
@@ -470,14 +470,14 @@
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getHosItemDetail(System.String)">
             <summary>
-            缴费明细查询
+            缴费明细查询PRC_GetHosItemDetail
             </summary>
             <param name="orderNo">订单号RecipeNo</param>
             <returns></returns>
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getHosItemNumList(System.String,System.String)">
             <summary>
-            收入金额订单数量接口
+            收入金额订单数量接口PRC_GetTotal
             </summary>
             <param name="start">开始时间</param>
             <param name="end">结束时间</param>
@@ -485,21 +485,21 @@
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getHosItemNumListByType(System.Int32)">
             <summary>
-            交易金额走势图接口
+            交易金额走势图接口PRC_GetTotalByDate
             </summary>
             <param name="Type">查询类别1 查询 本月  2 查询本年</param>
             <returns></returns>
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.getHosItemNumListByYW(System.Int32)">
             <summary>
-            各业务交易金额接口
+            各业务交易金额接口PRC_GetTotalByType
             </summary>
             <param name="Type">查询类别1 查询 本月  2 查询本年</param>
             <returns></returns>
         </member>
         <member name="M:HISInterface.Controllers.COMtestController.GetyesterdayTotal">
             <summary>
-            HIS账单接口(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
+            HIS账单接口PRC_GetyesterdayTotal(查询当天日期的前一天数据)------  备注:我们这边每天凌晨1点用定时任务刷数据
             </summary>
             <returns></returns>
         </member>
@@ -556,7 +556,7 @@
         </member>
         <member name="M:HISInterface.Controllers.IPBController.PayInPrepayCost(System.Object)">
             <summary>
-            住院预交金收取接口
+            住院预交金收取接口PRC_InPrepayPayedConfirm
             </summary>
             <remarks>
             >参数实例
@@ -626,7 +626,7 @@
         </member>
         <member name="M:HISInterface.Controllers.IPBtestController.PayInPrepayCost(System.Object)">
             <summary>
-            住院预交金收取接口
+            住院预交金收取接口PRC_InPrepayPayedConfirm
             </summary>
             <remarks>
             >参数实例
@@ -656,7 +656,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.registCard(System.Object)">
             <summary>
-            注册就诊卡
+            注册就诊卡prc_outppatmedcardsell
             </summary>
             <remarks>
             >参数实例
@@ -674,7 +674,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.bindCard(System.Object)">
             <summary>
-            绑定就诊卡
+            绑定就诊卡PRC_OutpPatMedCardCheck
             </summary>
             <remarks>
             >参数实例
@@ -688,7 +688,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.appointment(System.Object)">
             <summary>
-            锁号的接口
+            锁号的接口PRC_OutpRegisterLock
             </summary>
             <remarks>
             >参数实例
@@ -709,7 +709,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.updateAppointmentStatus(System.Object)">
             <summary>
-            挂号确认的接口
+            挂号确认的接口PRC_OutpRegisterConfirm
             </summary>
             <remarks>
             >参数实例
@@ -726,7 +726,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.updateBillStatus(System.Object)">
             <summary>
-            门诊缴费操作
+            门诊缴费操作PRC_OutpBillsPayedConfirm
             </summary>
             <remarks>
             >参数实例
@@ -746,7 +746,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.registeredBack(System.Object)">
             <summary>
-            挂号退号
+            挂号退号PRC_OutpRegisterCancel
             </summary>
             <remarks>
             >参数实例
@@ -759,7 +759,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.GetAddRegister(System.Object)">
             <summary>
-            加号查询
+            加号查询PRC_RegisterAddQuery
             </summary>
             <remarks>
             >参数实例
@@ -772,7 +772,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.AddRegisterConfirm(System.Object)">
             <summary>
-            加号确认接口
+            加号确认接口PRC_RegisterAddConfirm
             </summary>
             <remarks>
             >参数实例
@@ -789,7 +789,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.SMAddQuery(System.Object)">
             <summary>
-            扫码加号查询
+            扫码加号查询PRC_RegisterSMAddQuery
             </summary>
             <remarks>
             >参数实例
@@ -802,7 +802,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.SMRegister(System.Object)">
             <summary>
-            扫码挂号
+            扫码挂号PRC_OutpRegisterSMAdd
             </summary>
             <remarks>
             >参数实例
@@ -820,7 +820,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.sendOtherTypeRecord(System.Object)">
             <summary>
-            其他费用缴费接口
+            其他费用缴费接口PRC_OtherFeePayedConfirm
             </summary>
             <remarks>
             >参数实例
@@ -845,7 +845,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.UpdatePatientInfo(System.Object)">
             <summary>
-            修改患者基本信息接口
+            修改患者基本信息接口PRC_UpdatePatientInfo
             </summary>
             <remarks>
             >参数实例
@@ -862,7 +862,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBController.ApplyCheck(System.Object)">
             <summary>
-            预约检查新型冠状核酸检测
+            预约检查新型冠状核酸检测PRC_CHECKITEM_APPLY
             </summary>
             <remarks>
             >参数实例
@@ -890,7 +890,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.registCard(System.Object)">
             <summary>
-            注册就诊卡
+            注册就诊卡prc_outppatmedcardsell
             </summary>
             <remarks>
             >参数实例
@@ -908,7 +908,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.bindCard(System.Object)">
             <summary>
-            绑定就诊卡
+            绑定就诊卡PRC_OutpPatMedCardCheck
             </summary>
             <remarks>
             >参数实例
@@ -922,7 +922,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.appointment(System.Object)">
             <summary>
-            锁号的接口
+            锁号的接口PRC_OutpRegisterLock
             </summary>
             <remarks>
             >参数实例
@@ -943,7 +943,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.updateAppointmentStatus(System.Object)">
             <summary>
-            挂号确认的接口
+            挂号确认的接口PRC_OutpRegisterConfirm
             </summary>
             <remarks>
             >参数实例
@@ -960,7 +960,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.updateBillStatus(System.Object)">
             <summary>
-            门诊缴费操作
+            门诊缴费操作PRC_OutpBillsPayedConfirm
             </summary>
             <remarks>
             >参数实例
@@ -980,7 +980,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.registeredBack(System.Object)">
             <summary>
-            挂号退号
+            挂号退号PRC_OutpRegisterCancel
             </summary>
             <remarks>
             >参数实例
@@ -993,7 +993,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.GetAddRegister(System.Object)">
             <summary>
-            加号查询
+            加号查询PRC_RegisterAddQuery
             </summary>
             <remarks>
             >参数实例
@@ -1006,7 +1006,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.AddRegisterConfirm(System.Object)">
             <summary>
-            加号确认接口
+            加号确认接口PRC_RegisterAddConfirm
             </summary>
             <remarks>
             >参数实例
@@ -1023,7 +1023,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.SMAddQuery(System.Object)">
             <summary>
-            扫码加号查询
+            扫码加号查询PRC_RegisterSMAddQuery
             </summary>
             <remarks>
             >参数实例
@@ -1036,7 +1036,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.SMRegister(System.Object)">
             <summary>
-            扫码挂号
+            扫码挂号PRC_OutpRegisterSMAdd
             </summary>
             <remarks>
             >参数实例
@@ -1096,7 +1096,7 @@
         </member>
         <member name="M:HISInterface.Controllers.OPBtestController.ApplyCheck(System.Object)">
             <summary>
-            预约检查新型冠状核酸检测
+            预约检查新型冠状核酸检测PRC_CHECKITEM_APPLY
             </summary>
             <remarks>
             >参数实例
