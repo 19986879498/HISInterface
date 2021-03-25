@@ -1,4 +1,6 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,7 +11,7 @@ using System.Text;
 
 namespace HISInterface.Logic
 {
-   public class Functions
+    public class Functions
     {
         /// <summary>
         /// 获取access_token
@@ -25,14 +27,14 @@ namespace HISInterface.Logic
                 string appSecret = "a4971ccff81e9c31d13e944602d7e0c1";
                 //获取微信token
                 string token_url = "https://api.weixin.qq.com/cgi-bin/token?appid=" + appID + "&secret=" + appSecret + "&grant_type=client_credential";
-               // Log.Logger.GetLog("Url:" + token_url);
+                // Log.Logger.GetLog("Url:" + token_url);
                 HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(token_url);
                 //请求方式
                 myRequest.Method = "GET";
                 HttpWebResponse myResponse = (HttpWebResponse)myRequest.GetResponse();
                 StreamReader reader = new StreamReader(myResponse.GetResponseStream(), Encoding.UTF8);
                 string content = reader.ReadToEnd();
-               // Log.Logger.GetLog("Content:" + content.ToString());
+                // Log.Logger.GetLog("Content:" + content.ToString());
                 myResponse.Close();
                 reader.Dispose();
                 //var result= JsonConvert.DeserializeObject(content);
@@ -44,7 +46,7 @@ namespace HISInterface.Logic
                 token = "";
 
             }
-           // Log.Logger.GetLog("Token:" + token.ToString());
+            // Log.Logger.GetLog("Token:" + token.ToString());
             return token;
         }
         //获取小程序图片
@@ -110,7 +112,57 @@ namespace HISInterface.Logic
                 throw;
             }
             return null;
-        } 
+        }
+        /// <summary>
+        /// 下载Excel的方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataList">数据</param>
+        /// <param name="headers">表头</param>
+        /// <returns></returns>
+        public static string CreateExcelFromList(string JsonString, string Headerstring)
+        {
+            List<JObject> jlist = JsonConvert.DeserializeObject<List<JObject>>(JsonString);
+            List<string> headers = Headerstring.Split(',').ToList();
+            string sWebRootFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tempExcel");
+            if (!Directory.Exists(sWebRootFolder))
+            {
+                Directory.CreateDirectory(sWebRootFolder);
+            }
+            string sFileName = $@"tempExcel_{DateTime.Now.ToString("yyyyMMddHHmmss")}.xlsx";
+            var path = Path.Combine(sWebRootFolder, sFileName);
+            FileInfo file = new FileInfo(path);
+            if (file.Exists)
+            {
+                file.Delete();
+                file = new FileInfo(path);
+            }
+            string[] excelArr = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (ExcelPackage package = new ExcelPackage(file))
+            {
+                //创建sheet
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("sheet1");
+               // worksheet.Cells.LoadFromCollection(dataList, true);
+                //表头字段
+                for (int i = 0; i < headers.Count; i++)
+                {
+                    worksheet.Cells[1, i + 1].Value = headers[i];
+                    for (int j = 0; j < jlist.Count; j++)
+                    {
+                        JObject itemjob = jlist[j];
+                        if (!itemjob.ContainsKey(headers[i]))
+                        {
+                            worksheet.Cells[excelArr[i] + (2+j)].Value = "";
+                        }
+                        worksheet.Cells[excelArr[i] + (2 + j)].Value = itemjob.TryGetValue(headers[i], StringComparison.OrdinalIgnoreCase, out JToken val) == true ? val.ToString() : "" ;
+                    }
+                }
+
+                package.Save();
+            }
+            return path;
+        }
 
         public class RecordResult
         {

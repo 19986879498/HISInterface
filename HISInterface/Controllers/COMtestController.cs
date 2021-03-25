@@ -822,6 +822,183 @@ namespace HISInterface.Controllers
         #endregion
 
 
+        #region 根据条件获取医生列表 1 是根据医生id查 排班  2是根据排班查号源
+        /// <summary>
+        /// 根据条件获取医生排班列表 1 是根据医生id查 排班  2是根据排班查号源
+        /// </summary>
+        /// <remarks>
+        /// >参数实例
+        /// {
+        ///  "doctorId":"医生编号",
+        ///  "type":"业务id号 1 是根据医生id查 排班  2是根据排班查号源",
+        ///  "date":"默认空就好"
+        ///  }
+        /// </remarks>
+        /// <param name="dy">请求正文</param>
+        /// <returns></returns>
+        [HttpPost, Route("GetSchemaInfoByDoc")]
+        public IActionResult GetSchemaInfoByDoc([FromBody] dynamic dy)
+        {
+            UpdateSql("his");
+            JObject j = Methods.dynamicToJObject(dy);
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n根据条件获取医生排班列表的入参" + j.ToString());
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            try
+            {
+                oralist.Add(Methods.GetInput("doctId", j.GetValue("doctorId").ToString()));
+                oralist.Add(Methods.GetInput("bizType", j.GetValue("type").ToString()));
+                oralist.Add(Methods.GetInput("Docdate", j.GetValue("date").ToString()));
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ResultSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_OutpDoctorQueryByDoc", oralist.ToArray());
+            //Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
+            return Methods.GetResult(oralist, ds);
+        }
+        #endregion
+
+        #region 查询住院预交金余额 1、查询预交金余额2、查询预交金记录
+        /// <summary>
+        /// 查询住院预交金余额 1、查询预交金余额2、查询预交金记录
+        /// </summary>
+        /// <remarks>
+        /// >请求实例
+        /// {
+        /// "idCardNo":"身份证号",
+        /// "hospitalNum":"住院号",
+        /// "phone":"电话",
+        /// "type":"业务Id 1、查询预交金余额2、查询预交金记录"
+        /// }
+        /// </remarks>
+        /// <param name="dy">请求正文</param>
+        /// <returns></returns>
+        [HttpPost, Route("QueryInPrepayInfo")]
+        public IActionResult QueryInPrepayInfo([FromBody] dynamic dy)
+        {
+            UpdateSql("his");
+            JObject j = Methods.dynamicToJObject(dy);
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n查询住院预交金余额" + j.ToString());
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            try
+            {
+                oralist.Add(Methods.GetInput("PatientNo", j.GetValue("hospitalNum").ToString()));
+                oralist.Add(Methods.GetInput("IdCard", j.GetValue("idCardNo").ToString()));
+                oralist.Add(Methods.GetInput("Phone", j.GetValue("phone").ToString()));
+                oralist.Add(Methods.GetInput("bizType", j.GetValue("type").ToString()));
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_QUERYPREPAY", oralist.ToArray());
+            //Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
+            return Methods.GetResult(oralist, ds);
+        }
+        #endregion
+
+
+        #region 出诊变更信息查询--1 是 出诊变更根据医生查询挂号患者信息dto --2 是 出诊变更根据医生查询挂号患者信息vo 
+        /// <summary>
+        /// 出诊变更信息查询  --1 是 出诊变更根据医生查询挂号患者信息dto --2 是 出诊变更根据医生查询挂号患者信息vo 
+        /// </summary>
+        /// <remarks>
+        /// >参数实例 
+        /// {
+        ///  "doctorId":"医生编号",
+        ///  "schedulingDate":"排班时间",
+        ///  "phone":"电话",可为空
+        ///  "timeFrame":"时间段类型",
+        ///  "department":"科室id",
+        ///  "isRefundRegister":"1 正常 2 退号",
+        ///  "type":"业务Id 1、出诊变更根据医生查询挂号患者信息dto 2、出诊变更根据医生查询挂号患者信息vo "
+        ///  }
+        /// </remarks>
+        /// <param name="dy">请求正文</param>
+        /// <returns></returns>
+        [HttpPost, Route("QueryRegInfo")]
+        public IActionResult QueryRegInfo([FromBody] dynamic dy)
+        {
+            UpdateSql("his");
+            JObject j = Methods.dynamicToJObject(dy);
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n出诊变更信息查询" + j.ToString());
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            try
+            {
+                oralist.Add(Methods.GetInput("DoctID", j.GetValue("doctorId").ToString()));
+                oralist.Add(Methods.GetInput("schemaTime", j.GetValue("schedulingDate").ToString()));
+                oralist.Add(Methods.GetInput("Phone", j.GetValue("phone").ToString()));
+                oralist.Add(Methods.GetInput("NOONCODE", j.GetValue("timeFrame").ToString()));
+                oralist.Add(Methods.GetInput("DEPTID", j.GetValue("department").ToString()));
+                oralist.Add(Methods.GetInput("TRANSTYPE", j.GetValue("isRefundRegister").ToString()));
+                oralist.Add(Methods.GetInput("bizType", j.GetValue("type").ToString()));
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ResultSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_REGISTERCHANGQUERY", oralist.ToArray());
+            //Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
+            return Methods.GetResult(oralist, ds);
+        }
+        #endregion
+
+
+        #region 获取住院信息
+        /// <summary>
+        /// 获取住院信息 1、检验信息接口 2、获取住院信息 
+        /// </summary>
+        /// <remarks>
+        /// >参数实例 
+        /// {
+        ///  "idCardNo":"身份证号"，
+        ///  "hospitalNum":"住院号"
+        ///  "patientName":"病人姓名",
+        ///  "phone":"病人电话",
+        ///  "type":"业务Id 1、检验信息接口 2、获取住院信息 "
+        ///  }
+        /// </remarks>
+        /// <param name="dy">请求正文</param>
+        /// <returns></returns>
+        [HttpPost, Route("QueryInMainInfo")]
+        public IActionResult QueryInMainInfo([FromBody] dynamic dy)
+        {
+            UpdateSql("his");
+            JObject j = Methods.dynamicToJObject(dy);
+            Console.WriteLine("请求日期：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n获取住院信息" + j.ToString());
+            List<OracleParameter> oralist = new List<OracleParameter>();
+            try
+            {
+                oralist.Add(Methods.GetInput("PatientNo", j.GetValue("hospitalNum").ToString()));
+                oralist.Add(Methods.GetInput("patientName", j.GetValue("patientName").ToString()));
+                oralist.Add(Methods.GetInput("IdCard", j.GetValue("idCardNo").ToString()));
+                oralist.Add(Methods.GetInput("Phone", j.GetValue("phone").ToString()));
+                oralist.Add(Methods.GetInput("bizType", j.GetValue("type").ToString()));
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult(new { msg = "请求失败", data = ex.Message, code = "500" });
+            }
+            oralist.Add(Methods.GetOutput("ReturnSet", OracleDbType.RefCursor, 1024));
+            oralist.Add(Methods.GetOutput("ReturnCode", OracleDbType.Int32, 20));
+            oralist.Add(Methods.GetOutput("ErrorMsg", OracleDbType.Varchar2, 50));
+            var ds = Methods.SqlQuery(db, "PKG_ZHYY_MZ.PRC_QUERYINMAININFO", oralist.ToArray());
+            //Console.WriteLine("返回参数:\n"+JsonConvert.SerializeObject(Methods.GetResult(oralist, ds)));
+            return Methods.GetResult(oralist, ds);
+        }
+        #endregion
+
+
         /// <summary>
         /// 切换数据库的方法
         /// </summary>
